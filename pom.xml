@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>com.example</groupId>
-    <artifactId>DATN_TrendSetter</artifactId>
+    <artifactId>DATN_TEAM_AE</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>DATN_TrendSetter</name>
     <description>DATN_TrendSetter</description>
