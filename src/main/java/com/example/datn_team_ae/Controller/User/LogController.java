@@ -14,7 +14,7 @@ public class LogController {
         return "DangNhap/DangNhapKhach";
     }
 
-    @GetMapping("auth/trendsetter")
+    @GetMapping("auth/MinLiNa")
     public String showLogin(Model model) {
         return "DangNhap/DangNhapNV";
     }

@@ -1,10 +1,15 @@
 <header class="main-header" th:fragment="header">
-    <a href="/admin" class="logo bg-dark text-white d-flex align-items-center px-3 py-2 rounded shadow text-center">
-        <span class="logo-mini fw-bold bg-primary text-white px-2 py-1 rounded me-2">TS</span>
-        <span class="logo-lg fw-bold mx-auto">TrendSetter</span>
-    </a>
 
-    <nav class="navbar navbar-dark bg-dark navbar-static-top">
+        <a href="/admin" class="logo bg-black text-white d-flex align-items-center px-3 py-2 rounded shadow text-center">
+            <span class="logo-mini fw-bold bg-black text-white px-2 py-2 rounded me-2">
+                <img class="logo-img" src="/img/logo.jpg"></span>
+            <span class="logo-lg fw-bold mx-auto">MINLINA</span>
+        </a>
+<!--    <a href="/admin" class="logo bg-dark text-white d-flex align-items-center px-3 py-2 rounded shadow text-center">-->
+<!--        <span class="logo-mini fw-bold bg-primary text-white px-2 py-1 rounded me-2">ML</span>-->
+<!--        <span class="logo-lg fw-bold mx-auto">MILINA</span>-->
+<!--    </a>-->
+    <nav class="navbar navbar-dark bg-black navbar-static-top">
         <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
             <span class="icon-bar"></span>
         </a>
@@ -38,5 +43,13 @@
             </ul>
         </div>
     </nav>
+    <style>
+        /* Trong file CSS của bạn */
+        .logo-img {
+            max-width: 30px;
+            height: auto;
+            display: block;
+        }
+    </style>
 </header>
 

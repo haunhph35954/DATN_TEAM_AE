@@ -172,7 +172,7 @@ function moModalHuy(hoaDonId) {
     new bootstrap.Modal(document.getElementById('modalHuyDon')).show();
   }
 
-  function xacNhanHuy() {
+function xacNhanHuy() {
     const hoaDonId = document.getElementById('hoaDonIdHuy').value;
     const lyDo = document.getElementById('lyDoHuy').value;
     const ghiChuThem = document.getElementById('ghiChuKhac').value;

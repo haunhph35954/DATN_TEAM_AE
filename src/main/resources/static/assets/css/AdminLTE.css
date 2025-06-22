@@ -190,6 +190,7 @@ a:focus {
   max-height: 100px;
   z-index: 1030;
 }
+
 .main-header .navbar {
   -webkit-transition: margin-left 0.3s ease-in-out;
   -o-transition: margin-left 0.3s ease-in-out;
@@ -420,10 +421,42 @@ a:focus {
   -moz-transition: -moz-transform 0.3s ease-in-out, width 0.3s ease-in-out;
   -o-transition: -o-transform 0.3s ease-in-out, width 0.3s ease-in-out;
   transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+  background-image: url('/img/sidebar.jpg');
+  background-size: cover; /* Tùy chọn: Ảnh sẽ bao phủ toàn bộ phần tử, có thể bị cắt bớt */
+  background-repeat: no-repeat; /* Tùy chọn: Ảnh sẽ không lặp lại */
+  background-position: center center; /* Tùy chọn: Ảnh sẽ căn giữa */
 }
 @media (max-width: 767px) {
   .main-sidebar {
     padding-top: 100px;
+  }
+}
+.treeview-menu li a:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.08);
+  padding-left: 50px;
+}
+.sidebar-menu > li {
+  opacity: 0;
+  animation: slideInLeft 0.6s ease forwards;
+}
+
+.sidebar-menu > li:nth-child(1) { animation-delay: 0.1s; }
+.sidebar-menu > li:nth-child(2) { animation-delay: 0.2s; }
+.sidebar-menu > li:nth-child(3) { animation-delay: 0.3s; }
+.sidebar-menu > li:nth-child(4) { animation-delay: 0.4s; }
+.sidebar-menu > li:nth-child(5) { animation-delay: 0.5s; }
+.sidebar-menu > li:nth-child(6) { animation-delay: 0.6s; }
+.sidebar-menu > li:nth-child(7) { animation-delay: 0.7s; }
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 @media (max-width: 767px) {

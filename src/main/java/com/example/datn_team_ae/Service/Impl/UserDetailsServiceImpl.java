@@ -25,6 +25,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Không tìm thấy nhân viên với email: " + email));
 
         String role = nhanVien.getVaiTro().name();
+
+
         System.out.println("User: " + email + " - Role: " + role); // In ra console
 
         return new org.springframework.security.core.userdetails.User(

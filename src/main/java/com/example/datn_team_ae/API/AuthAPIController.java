@@ -1,6 +1,7 @@
 package com.example.datn_team_ae.API;
 
 import com.example.datn_team_ae.Entity.NhanVien;
+import com.example.datn_team_ae.Service.KhachHangService;
 import com.example.datn_team_ae.Service.NhanVienService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -23,6 +24,9 @@ import java.util.UUID;
 public class AuthAPIController {
 
     private final NhanVienService nhanVienService;
+
+    // thêm login  khách hàng
+    private final KhachHangService khachHangService;
     private final BCryptPasswordEncoder passwordEncoder;
 
 

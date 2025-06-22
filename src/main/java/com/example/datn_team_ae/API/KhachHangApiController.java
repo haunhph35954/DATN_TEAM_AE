@@ -126,7 +126,7 @@ public class KhachHangApiController {
         }
 
 
-        if (trangThai == null || (!trangThai.equalsIgnoreCase("Hoạt động") && !trangThai.equalsIgnoreCase("Không hoạt động"))) {
+        if (trangThai == null || (!trangThai.equalsIgnoreCase("Đang Hoạt động") && !trangThai.equalsIgnoreCase("Ngừng hoạt động"))) {
             warnings.put("trangThai", "Vui lòng chọn trạng thái hợp lệ.");
         }
 
