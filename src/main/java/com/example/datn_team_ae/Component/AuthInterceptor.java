@@ -26,7 +26,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             if (requestURI.startsWith("/auth/home") || requestURI.startsWith("/admin")) {
                 response.sendRedirect("/auth/home");
             } else {
-                response.sendRedirect("/auth/trendsetter");
+                response.sendRedirect("/auth/minlina");
             }
             return false;
         }

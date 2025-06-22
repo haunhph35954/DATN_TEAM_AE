@@ -28,6 +28,7 @@ public class ThongKeControlller {
     @Autowired
     private ThongKeService thongKeService;
 
+
     @RequestMapping("admin/thong-ke")
     public String ThongKe(Model model) {
         // Lấy dữ liệu doanh thu và số lượng hóa đơn

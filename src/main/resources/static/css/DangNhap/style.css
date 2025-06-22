@@ -1,8 +1,7 @@
 /* Copyright (c) 2025 by Leonam Silva de Souza (https://codepen.io/leonam-silva-de-souza/pen/vYoazQq)
  */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
-*{
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -11,38 +10,43 @@
     list-style: none;
 }
 
-body{
+body {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(90deg, #e2e2e2, #c9d6ff);
+    background: linear-gradient(135deg, #f0f4ff, #dfe9f3);
 }
 
-.container{
+.container {
     position: relative;
     width: 850px;
     height: 550px;
-    background: #fff;
+    background: #ffffff;
     margin: 20px;
-    border-radius: 30px;
-    box-shadow: 0 0 30px rgba(0, 0, 0, .2);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
     overflow: hidden;
 }
 
-    .container h1{
-        font-size: 36px;
-        margin: -10px 0;
-    }
+.container h1 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #0f0f11;
+    margin-bottom: 10px;
+}
 
-    .container p{
-        font-size: 14.5px;
-        margin: 15px 0;
-    }
+.container p {
+    font-size: 15px;
+    color: #0f0f11;
+    margin: 15px 0;
+}
 
-form{ width: 100%; }
+form {
+    width: 100%;
+}
 
-.form-box{
+.form-box {
     position: absolute;
     right: 0;
     width: 50%;
@@ -52,106 +56,140 @@ form{ width: 100%; }
     align-items: center;
     color: #333;
     text-align: center;
-    padding: 40px;
+    padding: 50px 40px;
     z-index: 1;
     transition: .6s ease-in-out 1.2s, visibility 0s 1s;
 }
 
-    .container.active .form-box{ right: 50%; }
-
-    .form-box.register{ visibility: hidden; }
-        .container.active .form-box.register{ visibility: visible; }
-
-.input-box{
-    position: relative;
-    margin: 30px 0;
+.container.active .form-box {
+    right: 50%;
 }
 
-    .input-box input{
-        width: 100%;
-        padding: 13px 50px 13px 20px;
-        background: #eee;
-        border-radius: 8px;
-        border: none;
-        outline: none;
-        font-size: 16px;
-        color: #333;
-        font-weight: 500;
-    }
+.form-box.register {
+    visibility: hidden;
+}
 
-        .input-box input::placeholder{
-            color: #888;
-            font-weight: 400;
-        }
-    
-    .input-box i{
-        position: absolute;
-        right: 20px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 20px;
-    }
+.container.active .form-box.register {
+    visibility: visible;
+}
 
-.forgot-link{ margin: -15px 0 15px; }
-    .forgot-link a{
-        font-size: 14.5px;
-        color: #333;
-    }
+.input-box {
+    position: relative;
+    margin: 25px 0;
+}
 
-.btn{
+.input-box input {
+    width: 100%;
+    padding: 14px 50px 14px 20px;
+    background: #f1f3f7;
+    border-radius: 10px;
+    border: 1px solid #d6dbe5;
+    outline: none;
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+    transition: border-color 0.3s;
+}
+
+.input-box input:focus {
+    border-color: #7494ec;
+    background-color: #e9f0ff;
+}
+
+.input-box input::placeholder {
+    color: #aaa;
+    font-weight: 400;
+}
+
+.input-box i {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #a4254d;
+}
+
+.forgot-link {
+    margin: -10px 0 15px;
+}
+
+.forgot-link a {
+    font-size: 14px;
+    color: #150c0c;
+    transition: color 0.3s;
+}
+
+.forgot-link a:hover {
+    color: #84808a;
+}
+
+.btn {
     width: 100%;
     height: 48px;
-    background: #7494ec;
+    background: #988c82;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
     border: none;
     cursor: pointer;
     font-size: 16px;
     color: #fff;
     font-weight: 600;
+    transition: background 0.3s;
 }
 
-.social-icons{
+.btn:hover {
+    background: #917022;
+}
+
+.social-icons {
     display: flex;
     justify-content: center;
+    margin-top: 15px;
 }
 
-    .social-icons a{
-        display: inline-flex;
-        padding: 10px;
-        border: 2px solid #ccc;
-        border-radius: 8px;
-        font-size: 24px;
-        color: #333;
-        margin: 0 8px;
-    }
+.social-icons a {
+    display: inline-flex;
+    padding: 10px;
+    border: 2px solid #d6dbe5;
+    border-radius: 8px;
+    font-size: 22px;
+    color: #555;
+    margin: 0 8px;
+    transition: all 0.3s;
+}
 
-.toggle-box{
+.social-icons a:hover {
+    background: #9677d5;
+    color: #fff;
+    border-color: #e0c5c5;
+}
+
+.toggle-box {
     position: absolute;
     width: 100%;
     height: 100%;
 }
 
-    .toggle-box::before{
-        content: '';
-        position: absolute;
-        left: -250%;
-        width: 300%;
-        height: 100%;
-        background: #7494ec;
-        /* border: 2px solid red; */
-        border-radius: 150px;
-        z-index: 2;
-        transition: 1.8s ease-in-out;
-    }
+.toggle-box::before {
+    content: '';
+    position: absolute;
+    left: -250%;
+    width: 300%;
+    height: 100%;
+    background: linear-gradient(120deg, #d09494, #d09494);
+    border-radius: 150px;
+    z-index: 2;
+    transition: 1.8s ease-in-out;
+}
 
-        .container.active .toggle-box::before{ left: 50%; }
+.container.active .toggle-box::before {
+    left: 50%;
+}
 
-.toggle-panel{
+.toggle-panel {
     position: absolute;
     width: 50%;
     height: 100%;
-    /* background: seagreen; */
     color: #fff;
     display: flex;
     flex-direction: column;
@@ -159,35 +197,119 @@ form{ width: 100%; }
     align-items: center;
     z-index: 2;
     transition: .6s ease-in-out;
+    text-align: center;
+    padding: 0 30px;
 }
 
-    .toggle-panel.toggle-left{ 
+.toggle-panel.toggle-left {
+    left: 0;
+    transition-delay: 1.2s;
+}
+
+.container.active .toggle-panel.toggle-left {
+    left: -50%;
+    transition-delay: .6s;
+}
+
+.toggle-panel.toggle-right {
+    right: -50%;
+    transition-delay: .6s;
+}
+
+.container.active .toggle-panel.toggle-right {
+    right: 0;
+    transition-delay: 1.2s;
+}
+
+.toggle-panel p {
+    margin-bottom: 20px;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.toggle-panel .btn {
+    width: 160px;
+    height: 46px;
+    background: transparent;
+    border: 2px solid #fff;
+    box-shadow: none;
+    font-weight: 600;
+    transition: background 0.3s, color 0.3s;
+}
+
+.toggle-panel .btn:hover {
+    background: #fff;
+    color: #ff6262;
+}
+
+@media screen and (max-width: 650px) {
+    .container {
+        height: calc(100vh - 40px);
+    }
+
+    .form-box {
+        bottom: 0;
+        width: 100%;
+        height: 70%;
+        padding: 30px;
+    }
+
+    .container.active .form-box {
+        right: 0;
+        bottom: 30%;
+    }
+
+    .toggle-box::before {
         left: 0;
-        transition-delay: 1.2s; 
+        top: -270%;
+        width: 100%;
+        height: 300%;
+        border-radius: 20vw;
     }
-        .container.active .toggle-panel.toggle-left{
-            left: -50%;
-            transition-delay: .6s;
-        }
 
-    .toggle-panel.toggle-right{ 
-        right: -50%;
-        transition-delay: .6s;
+    .container.active .toggle-box::before {
+        left: 0;
+        top: 70%;
     }
-        .container.active .toggle-panel.toggle-right{
-            right: 0;
-            transition-delay: 1.2s;
-        }
 
-    .toggle-panel p{ margin-bottom: 20px; }
-
-    .toggle-panel .btn{
-        width: 160px;
-        height: 46px;
-        background: transparent;
-        border: 2px solid #fff;
-        box-shadow: none;
+    .container.active .toggle-panel.toggle-left {
+        left: 0;
+        top: -30%;
     }
+
+    .toggle-panel {
+        width: 100%;
+        height: 30%;
+    }
+
+    .toggle-panel.toggle-left {
+        top: 0;
+    }
+
+    .toggle-panel.toggle-right {
+        right: 0;
+        bottom: -30%;
+    }
+
+    .container.active .toggle-panel.toggle-right {
+        bottom: 0;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .form-box {
+        padding: 20px;
+    }
+
+    .toggle-panel h1 {
+        font-size: 30px;
+    }
+
+    .toggle-panel p {
+        font-size: 13px;
+    }
+}
+
 
 @media screen and (max-width: 650px){
     .container{ height: calc(100vh - 40px); }
@@ -221,7 +343,7 @@ form{ width: 100%; }
             top: -30%;
         }
 
-    .toggle-panel{ 
+    .toggle-panel{
         width: 100%;
         height: 30%;
     }
@@ -237,5 +359,5 @@ form{ width: 100%; }
 @media screen and (max-width: 400px){
     .form-box { padding: 20px; }
 
-    .toggle-panel h1{font-size: 30px; }
+    .toggle-panel h1{font-size: 100px; }
 }

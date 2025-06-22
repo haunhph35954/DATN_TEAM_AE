@@ -42,15 +42,30 @@ public class KhachHangService {
         return diaChiRepository.findByKhachHang_Id(idKhachHang);
     }
 
-    public KhachHang addKhachHang(KhachHang khachHang, MultipartFile file) throws IOException {
-        if (file != null && !file.isEmpty()) {
-            String imageUrl = cloudinaryService.uploadImage(file); // Upload ảnh lên Cloudinary
-            khachHang.setHinhAnh(imageUrl);
-        }
-
-        khachHang.setPassword(passwordEncoder.encode(khachHang.getPassword())); // Mã hóa mật khẩu
-        return khachHangRepository.save(khachHang);
+//    public KhachHang addKhachHang(KhachHang khachHang, MultipartFile file) throws IOException {
+//        if (file != null && !file.isEmpty()) {
+//            String imageUrl = cloudinaryService.uploadImage(file); // Upload ảnh lên Cloudinary
+//            khachHang.setHinhAnh(imageUrl);
+//        }
+//
+//        khachHang.setPassword(passwordEncoder.encode(khachHang.getPassword())); // Mã hóa mật khẩu
+//        return khachHangRepository.save(khachHang);
+//    }
+public KhachHang addKhachHang(KhachHang khachHang, MultipartFile file) throws IOException {
+    if (file != null && !file.isEmpty()) {
+        String imageUrl = cloudinaryService.uploadImage(file); // Upload ảnh lên Cloudinary
+        khachHang.setHinhAnh(imageUrl);
     }
+
+    // ✅ CHUẨN HÓA EMAIL TRƯỚC KHI LƯU
+    khachHang.setEmail(khachHang.getEmail().trim().toLowerCase());
+
+    // ✅ MÃ HÓA MẬT KHẨU
+    khachHang.setPassword(passwordEncoder.encode(khachHang.getPassword()));
+
+    return khachHangRepository.save(khachHang);
+}
+
 
     public boolean checkPassword(String rawPassword, String encodedPassword) {
         return passwordEncoder.matches(rawPassword, encodedPassword);

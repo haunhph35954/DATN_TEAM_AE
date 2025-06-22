@@ -48,52 +48,103 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    document.getElementById("registerForm").addEventListener("submit", async function (event) {
-        event.preventDefault();
+    // document.getElementById("registerForm")?.addEventListener("submit", async function (event) {
+    //     event.preventDefault();
 
-        const formData = {
-            hoTen: document.getElementById("register-name").value,
-            email: document.getElementById("register-email").value,
-            password: document.getElementById("register-password").value,
-            confirmPassword: document.getElementById("register-confirm-password").value,
-            userType: document.querySelector("input[name='registerUserType']:checked").value
-        };
+    //     const formData = {
+    //         hoTen: document.getElementById("register-name").value,
+    //         email: document.getElementById("register-email").value,
+    //         password: document.getElementById("register-password").value,
+    //         // confirmPassword: document.getElementById("register-confirm-password").value,
+    //         userType: 'NHANVIEN',
+    //         status: 'Đang Hoạt Động'
+    //     };
+    //
+    //     // Validate password match
+    //     // if (formData.password !== formData.confirmPassword) {
+    //     //     alert("Mật khẩu không khớp!");
+    //     //     return;
+    //     // }
+    //
+    //     const registerUrl = formData.userType === "NHANVIEN"
+    //         ? "/auth/nhanvien/register"
+    //         : "/auth/khachhang/register";
+    //
+    //     try {
+    //         const response = await fetch(`http://localhost:8080${registerUrl}`, {
+    //             method: "POST",
+    //             headers: {
+    //                 "Content-Type": "application/json"
+    //             },
+    //             body: JSON.stringify(formData),
+    //             credentials: 'include'
+    //         });
+    //
+    //         if (!response.ok) {
+    //             const errorData = await response.json();
+    //             throw new Error(errorData.message || "Đăng ký thất bại");
+    //         }
+    //
+    //         const result = await response.json();
+    //         alert("Đăng ký thành công! Vui lòng đăng nhập.");
+    //
+    //         // Tự động chuyển về form đăng nhập
+    //         container.classList.remove("active");
+    //     } catch (error) {
+    //         console.error("Lỗi đăng ký:", error);
+    //         alert(error.message || "Lỗi đăng ký. Vui lòng thử lại.");
+    //     }
+    // });
+        document.getElementById("registerForm")?.addEventListener("submit", async function (event) {
+            event.preventDefault();
 
-        // Validate password match
-        if (formData.password !== formData.confirmPassword) {
-            alert("Mật khẩu không khớp!");
-            return;
-        }
+            const fullName = document.getElementById("register-name")?.value;
+            const email = document.getElementById("register-email")?.value;
+            const password = document.getElementById("register-password")?.value;
 
-        const registerUrl = formData.userType === "NHANVIEN"
-            ? "/auth/nhanvien/register"
-            : "/auth/khachhang/register";
+            const userType = document.querySelector("input[name='userType']")?.value || "KHACHHANG";
 
-        try {
-            const response = await fetch(`http://localhost:8080${registerUrl}`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(formData),
-                credentials: 'include'
-            });
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || "Đăng ký thất bại");
+            const formData = {
+                hoTen: fullName,
+                email: email,
+                password: password,
+                userType: userType,
+                status: "Đang Hoạt Động"
+            };
+
+            const registerUrl = userType === "NHANVIEN"
+                ? "/auth/nhanvien/register"
+                : "/auth/khachhang/register";
+
+            try {
+                const response = await fetch(`http://localhost:8080${registerUrl}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(formData),
+                    credentials: "include"
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || "Đăng ký thất bại");
+                }
+
+                const result = await response.json();
+
+                // Hiển thị thông báo thành công
+                Swal.fire("Thành công", "Đăng ký thành công! Vui lòng đăng nhập.", "success");
+
+                // Nếu có biến container, chuyển về form đăng nhập
+                const container = document.querySelector(".container");
+                container?.classList.remove("active");
+            } catch (error) {
+                console.error("Lỗi đăng ký:", error);
+                Swal.fire("Lỗi", error.message || "Lỗi đăng ký. Vui lòng thử lại.", "error");
             }
-
-            const result = await response.json();
-            alert("Đăng ký thành công! Vui lòng đăng nhập.");
-
-            // Tự động chuyển về form đăng nhập
-            container.classList.remove("active");
-        } catch (error) {
-            console.error("Lỗi đăng ký:", error);
-            alert(error.message || "Lỗi đăng ký. Vui lòng thử lại.");
-        }
-    });
+        });
 
     // Xử lý đăng xuất
     document.getElementById("logoutBtn")?.addEventListener("click", async function() {

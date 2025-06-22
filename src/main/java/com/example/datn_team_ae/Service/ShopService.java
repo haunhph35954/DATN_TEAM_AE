@@ -2,9 +2,7 @@ package com.example.datn_team_ae.Service;
 
 import com.example.datn_team_ae.Entity.*;
 import com.example.datn_team_ae.Repository.*;
-
 import jakarta.persistence.EntityNotFoundException;
-
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,11 +21,15 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.stream.Collectors;
 
+
+
 @Service
 public class ShopService {
     private static final Set<String> ALLOWED_ROLES = Set.of("ADMIN", "NHANVIEN");
     private static final Map<Long, Lock> USER_LOCKS = new ConcurrentHashMap<>();
     private static final long SESSION_TIMEOUT_MS = TimeUnit.MINUTES.toMillis(30);
+
+
 
     @Autowired
     private HoaDonChiTietService hoaDonChiTietService;

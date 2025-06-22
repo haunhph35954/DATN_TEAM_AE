@@ -47,6 +47,7 @@ public class AuthService {
             nhanVien.setEmail(request.getEmail());
             nhanVien.setPassword(encodedPassword);
             nhanVien.setHoTen(request.getHoTen());
+            nhanVien.setTrangThai(request.getStatus());
 
             if ("ADMIN".equalsIgnoreCase(request.getRole())) {
                 nhanVien.setVaiTro(NhanVien.Role.ADMIN);
@@ -79,10 +80,12 @@ public class AuthService {
                 throw new RuntimeException("Email đã tồn tại trong hệ thống khách hàng");
             }
 
+
             KhachHang khachHang = new KhachHang();
             khachHang.setEmail(request.getEmail());
             khachHang.setPassword(encodedPassword);
             khachHang.setHoTen(request.getHoTen());
+            khachHang.setTrangThai(request.getStatus());
             KhachHang savedKhachHang = khachHangRepository.save(khachHang);
 
             UserDetails userDetails = UserDetails.fromKhachHang(savedKhachHang);

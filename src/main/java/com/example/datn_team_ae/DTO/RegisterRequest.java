@@ -17,4 +17,6 @@ public class RegisterRequest {
     private String loaiTaiKhoan;
     private String hoTen;
     private String hinhAnh;
+
+    private String status;
 }
