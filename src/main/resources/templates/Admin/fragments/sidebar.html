@@ -5,13 +5,6 @@
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu" data-widget="tree">
 
-            <!-- Thống Kê (Chỉ Admin thấy) -->
-            <li th:if="${session.userNhanVien != null and #lists.contains(session.rolesNhanVien, 'ROLE_ADMIN')}">
-                <a href="/admin/thong-ke">
-                    <i class="fa fa-chart-pie"></i> <span>Thống Kê</span>
-                </a>
-            </li>
-
             <!-- Bán Hàng Tại Quầy -->
             <li>
                 <a href="/admin/sell-counter">
@@ -67,7 +60,12 @@
                     <li><a href="/admin/phieugiamsp"><i class="fa fa-ticket-alt"></i> Phiếu Giảm Giá Sản Phẩm </a></li>
                 </ul>
             </li>
-
+            <!-- Thống Kê (Chỉ Admin thấy) -->
+            <li th:if="${session.userNhanVien != null and #lists.contains(session.rolesNhanVien, 'ROLE_ADMIN')}">
+                <a href="/admin/thong-ke">
+                    <i class="fa fa-chart-pie"></i> <span>Thống Kê</span>
+                </a>
+            </li>
         </ul>
     </section>
 </aside>
