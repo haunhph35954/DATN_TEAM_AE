@@ -18,6 +18,12 @@ public class LienHeAdminController {
     @GetMapping
     public String hienThiDanhSach(Model model) {
         model.addAttribute("dsLienHe", lienHeService.layTatCa());
+
+        model.addAttribute("tongLienHe", lienHeService.demTatCa());
+        model.addAttribute("chuaXuLy", lienHeService.demTheoTrangThai(TrangThaiLienHe.CHUA_XU_LY));
+        model.addAttribute("dangXuLy", lienHeService.demTheoTrangThai(TrangThaiLienHe.DANG_XU_LY));
+        model.addAttribute("daXuLy", lienHeService.demTheoTrangThai(TrangThaiLienHe.DA_XU_LY));
+
         return "Admin/LienHe/lienhe";
     }
 

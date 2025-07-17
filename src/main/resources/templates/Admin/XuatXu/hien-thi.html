@@ -12,18 +12,31 @@
     <div th:replace="admin/fragments/sidebar :: sidebar"></div>
 
     <!-- =============================================== -->
+    <!--    tiêu đề chữ-->
+    <style>
+        .content-header {
+            background: linear-gradient(to right, #3a3f51, #2c2f3e);
+            padding: 20px;
+            border-radius: 12px 12px 0 0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
 
+        .content-header h2 {
+            color: white;
+            font-weight: 700;
+            margin: 0;
+        }
+    </style>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>
-                Danh Sách Xuất Xứ
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li><a href="#">Xuất Xứ</a></li>
-            </ol>
+            <h2>🌍 Danh sách xuất xứ</h2>
+<!--            <ol class="breadcrumb">-->
+<!--                <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>-->
+<!--                <li><a href="#">Xuất Xứ</a></li>-->
+<!--            </ol>-->
         </section>
 
         <!-- Main content -->

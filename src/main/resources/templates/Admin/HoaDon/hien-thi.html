@@ -14,12 +14,25 @@
     <!-- =============================================== -->
 
     <!-- Content Wrapper. Contains page content -->
+    <style>
+        .content-header {
+            background: linear-gradient(to right, #3a3f51, #2c2f3e);
+            padding: 20px;
+            border-radius: 12px 12px 0 0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .content-header h2 {
+            color: white;
+            font-weight: 700;
+            margin: 0;
+        }
+    </style>
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
+        <!-- Tiêu đề -->
         <section class="content-header">
-            <h1>
-                Hóa Đơn
-            </h1>
+            <h2>🧾 Quản lý hóa đơn</h2>
         </section>
 
         <!-- Main content -->
@@ -32,32 +45,32 @@
                         <div class="box-body">
                             <div class="container">
                                 <div class="d-flex flex-nowrap overflow-x-auto justify-content-center gap-2 mb-2 p-2 border rounded-3 shadow-sm bg-light">
-                                    <button class="btn btn-outline-primary px-2 py-1 fw-semibold border border-primary rounded-pill" data-status="">
-                                        Tất Cả (<span id="count-all">0</span>)
+                                    <button class="filter-btn" data-status="">
+                                        📋 Tất Cả (<span id="count-all">0</span>)
                                     </button>
 <!--                                    <button class="btn btn-outline-success px-2 py-1 fw-semibold border border-success rounded-pill" data-status="Đang Xử Lý">-->
 <!--                                        Đang Xử Lý (<span id="count-dang-xu-ly">0</span>)-->
 <!--                                    </button>-->
                                     <button class="btn btn-outline-success px-2 py-1 fw-semibold border border-success rounded-pill" data-status="Chờ Xác Nhận">
-                                        Chờ Xác Nhận (<span id="count-cho-xac-nhan">0</span>)
+                                        ⏳ Chờ Xác Nhận (<span id="count-cho-xac-nhan">0</span>)
                                     </button>
                                     <button class="btn btn-outline-success px-2 py-1 fw-semibold border border-success rounded-pill" data-status="Đã Xác Nhận">
-                                        Đã Xác Nhận (<span id="count-da-xac-nhan">0</span>)
+                                        ✅ Đã Xác Nhận (<span id="count-da-xac-nhan">0</span>)
                                     </button>
                                     <button class="btn btn-outline-success px-2 py-1 fw-semibold border border-success rounded-pill" data-status="Chờ Vận Chuyển">
-                                        Chờ Vận Chuyển (<span id="count-cho-van-chuyen">0</span>)
+                                        📦 Chờ Vận Chuyển (<span id="count-cho-van-chuyen">0</span>)
                                     </button>
                                     <button class="btn btn-outline-success px-2 py-1 fw-semibold border border-success rounded-pill" data-status="Đang Giao Hàng">
-                                        Đang Giao Hàng (<span id="count-dang-giao-hang">0</span>)
+                                        🚚 Đang Giao Hàng (<span id="count-dang-giao-hang">0</span>)
                                     </button>
                                     <button class="btn btn-outline-success px-2 py-1 fw-semibold border border-success rounded-pill" data-status="Đã Thanh Toán">
-                                        Đã Thanh Toán (<span id="count-da-thanh-toan">0</span>)
+                                        💳 Đã Thanh Toán (<span id="count-da-thanh-toan">0</span>)
                                     </button>
                                     <button class="btn btn-outline-success px-2 py-1 fw-semibold border border-success rounded-pill" data-status="Đã Hoàn Thành">
-                                        Đã Hoàn Thành (<span id="count-da-hoan-thanh">0</span>)
+                                        🎉 Đã Hoàn Thành (<span id="count-da-hoan-thanh">0</span>)
                                     </button>
                                     <button class="btn btn-outline-danger px-2 py-1 fw-semibold border border-danger rounded-pill" data-status="Đã Hủy">
-                                        Đã Hủy (<span id="count-da-huy">0</span>)
+                                        ❌ Đã Hủy (<span id="count-da-huy">0</span>)
                                     </button>
                                 </div>
                             </div>
@@ -73,6 +86,7 @@
                                     <th class="text-center">Ngày Tạo</th>
                                     <th class="text-center">Tiền Giảm</th>
                                     <th class="text-center">Tổng Tiền</th>
+                                    <th class="text-center">Trạng Thái</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                                 </thead>
@@ -99,6 +113,22 @@
                                     <td th:text="${#temporals.format(hoaDon.ngayTao, 'HH:mm:ss dd-MM-yyyy')}"></td>
                                     <td th:text="${hoaDon.phieuGiamGia != null ? hoaDon.phieuGiamGia.giaTriGiam + ' VND' : '0 VND'}"></td>
                                     <td th:text="${hoaDon.tongTien != null ? hoaDon.tongTien + ' VND' : '0 VND'}"></td>
+                                    <td>
+    <span class="badge"
+          th:text="${hoaDon.trangThai != null ? hoaDon.trangThai : 'Không rõ'}"
+          th:classappend="${
+            hoaDon.trangThai == 'Chờ Xác Nhận'      ? ' badge bg-warning text-dark' :
+            hoaDon.trangThai == 'Đã Xác Nhận'       ? ' badge bg-primary' :
+            hoaDon.trangThai == 'Chờ Vận Chuyển'    ? ' badge bg-warning text-dark' :
+            hoaDon.trangThai == 'Đang Giao Hàng'    ? ' badge bg-info text-dark' :
+            hoaDon.trangThai == 'Đã Thanh Toán'     ? ' badge bg-success' :
+            hoaDon.trangThai == 'Đã Hoàn Thành'     ? ' badge bg-success-subtle text-success' :
+            hoaDon.trangThai == 'Đã Hủy'            ? ' badge bg-danger' :
+                                                      ' badge bg-secondary'
+          }">
+    </span>
+                                    </td>
+
                                     <td>
                                         <a th:href="@{/admin/order-details(hoaDonId=${hoaDon.id})}" class="btn btn-primary btn-sm fw-bold me-2">
                                             <i class="bi bi-pencil-square"></i> Chi Tiết
@@ -218,9 +248,10 @@
                             hoaDon.tongTien
                                 ? hoaDon.tongTien.toLocaleString('vi-VN') + ' VND'
                                 : '0 VND',
+                            hoaDon.trangThai || 'Không rõ',
                             `<a href="/admin/order-details?hoaDonId=${hoaDon.id}" class="btn btn-warning btn-sm">
-                    <i class="bi bi-pencil-square"></i> Chi Tiết
-                    </a>`
+        <i class="bi bi-pencil-square"></i> Chi Tiết
+     </a>`
                         ]).draw(false);
                     });
                 })

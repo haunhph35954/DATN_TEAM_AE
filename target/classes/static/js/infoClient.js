@@ -28,9 +28,48 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error("Lỗi khi lấy thông tin khách hàng:", error));
 });
 
-function updateThongTin() {
+function clearErrors() {
+    document.querySelectorAll(".error-message").forEach(el => el.textContent = "");
+}
+
+function showError(inputName, message) {
+    const input = document.querySelector(`[name='${inputName}']`);
+    if (!input) return;
+    const errorSpan = input.nextElementSibling;
+    if (errorSpan && errorSpan.classList.contains("error-message")) {
+        errorSpan.textContent = message;
+    }
+}
+
+function validateForm() {
+    clearErrors();
+    let isValid = true;
+
     const hoTen = document.querySelector("input[name='hoTen']").value;
     const soDienThoai = document.querySelector("input[name='soDienThoai']").value;
+
+    if (!hoTen || hoTen.trim() === "") {
+        showError("hoTen", "Họ tên không được để trống.");
+        isValid = false;
+    } else if (hoTen[0] === ' ') {
+        showError("hoTen", "Họ tên không được để dấu cách ở đầu.");
+        isValid = false;
+    }
+
+    const phoneRegex = /^0\d{9}$/;
+    if (!phoneRegex.test(soDienThoai)) {
+        showError("soDienThoai", "Số điện thoại không hợp lệ. Phải bắt đầu bằng số 0 và đúng 10 chữ số.");
+        isValid = false;
+    }
+
+    return isValid;
+}
+
+function updateThongTin() {
+    if (!validateForm()) return;
+
+    const hoTen = document.querySelector("input[name='hoTen']").value.trim();
+    const soDienThoai = document.querySelector("input[name='soDienThoai']").value.trim();
     const gioiTinh = document.querySelector("select[name='gioiTinh']").value;
     const ngaySinh = document.querySelector("input[name='ngaySinh']").value;
     const avatarInput = document.querySelector("input[name='hinhAnh']");
@@ -41,10 +80,8 @@ function updateThongTin() {
     formData.append('gioiTinh', gioiTinh);
     formData.append('ngaySinh', ngaySinh);
 
-    // Nếu có chọn ảnh mới, thêm ảnh vào formData
-    if (avatarInput.files.length > 0) {
-        const file = avatarInput.files[0];
-        formData.append('file', file);
+    if (avatarInput && avatarInput.files.length > 0) {
+        formData.append('file', avatarInput.files[0]);
     }
 
     sendUpdateRequest(formData);

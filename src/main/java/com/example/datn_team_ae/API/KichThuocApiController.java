@@ -33,12 +33,13 @@ public class KichThuocApiController {
                 ));
             }
 
-            if (kichThuocRequest.getTenKichThuoc().isEmpty()) {
+            if (kichThuocRequest.getTenKichThuoc() == null || kichThuocRequest.getTenKichThuoc().trim().isEmpty()) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
                         "success", false,
-                        "message", "Tên kích thước không được để trống"
+                        "message", "Tên kích thước không được để trống hoặc chỉ chứa khoảng trắng"
                 ));
             }
+
 
             // Lấy thông tin nhân viên từ session
             NhanVien nhanVienSession = (NhanVien) session.getAttribute("userNhanVien");

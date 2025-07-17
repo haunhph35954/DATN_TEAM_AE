@@ -20,6 +20,17 @@ public class LienHeServiceImpl implements LienHeService {
     private final EmailService emailService;
 
     @Override
+    public long demTatCa() {
+        return lienHeRepo.count(); // ✅ Đúng tên biến
+    }
+
+    @Override
+    public long demTheoTrangThai(TrangThaiLienHe trangThai) {
+        return lienHeRepo.countByTrangThai(trangThai);
+    }
+
+
+    @Override
     public LienHe guiLienHe(LienHeDTO dto) {
         LienHe lh = new LienHe();
         lh.setHoTen(dto.getHoTen());

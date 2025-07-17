@@ -10,10 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -46,35 +43,72 @@ public class DiaChiApiController {
         ));
     }
 
-    @GetMapping("/list")
-    public ResponseEntity<?> getDiaChiKhachHangs(HttpSession session) {
-        // Kiểm tra đăng nhập
-        KhachHang khachHang = (KhachHang) session.getAttribute("userKhachHang");
-        if (khachHang == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
-                    "success", false,
-                    "message", "Chưa đăng nhập"
-            ));
-        }
-
-        // Lấy danh sách địa chỉ của khách hàng từ database
-        List<DiaChi> danhSachDiaChi = diaChiRepository.findByKhachHangId(khachHang.getId());
-
-        // Trả về danh sách địa chỉ kèm theo thông tin khách hàng
-        return ResponseEntity.ok(Map.of(
-                "success", true,
-                "data", danhSachDiaChi.stream().map(diaChi -> Map.of(
-                        "hoTen", khachHang.getHoTen(), // Lấy thông tin khách hàng từ session
-                        "soDienThoai", khachHang.getSoDienThoai(),
-                        "email", khachHang.getEmail(),
-                        "diaChiCuThe", diaChi.getDiaChiCuThe(),
-                        "thanhPho", diaChi.getThanhPho(),
-                        "huyen", diaChi.getHuyen(),
-                        "phuong", diaChi.getPhuong(),
-                        "trangThai", diaChi.getTrangThai()
-                )).collect(Collectors.toList())
-        ));
+//    @GetMapping("/list")
+//    public ResponseEntity<?> getDiaChiKhachHangs(HttpSession session) {
+//        // Kiểm tra đăng nhập
+//        KhachHang khachHang = (KhachHang) session.getAttribute("userKhachHang");
+//        if (khachHang == null) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
+//                    "success", false,
+//                    "message", "Chưa đăng nhập"
+//            ));
+//        }
+//
+//        // Lấy danh sách địa chỉ của khách hàng từ database
+//        List<DiaChi> danhSachDiaChi = diaChiRepository.findByKhachHangId(khachHang.getId());
+//
+//        // Trả về danh sách địa chỉ kèm theo thông tin khách hàng
+//        return ResponseEntity.ok(Map.of(
+//                "success", true,
+//                "data", danhSachDiaChi.stream().map(diaChi -> Map.of(
+//                        "hoTen", khachHang.getHoTen(), // Lấy thông tin khách hàng từ session
+//                        "soDienThoai", khachHang.getSoDienThoai(),
+//                        "email", khachHang.getEmail(),
+//                        "diaChiCuThe", diaChi.getDiaChiCuThe(),
+//                        "thanhPho", diaChi.getThanhPho(),
+//                        "huyen", diaChi.getHuyen(),
+//                        "phuong", diaChi.getPhuong(),
+//                        "trangThai", diaChi.getTrangThai()
+//                )).collect(Collectors.toList())
+//        ));
+//    }
+@GetMapping("/list")
+public ResponseEntity<?> getDiaChiKhachHangs(HttpSession session) {
+    // Kiểm tra đăng nhập
+    KhachHang khachHang = (KhachHang) session.getAttribute("userKhachHang");
+    if (khachHang == null) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(Map.of(
+                        "success", false,
+                        "message", "Chưa đăng nhập"
+                ));
     }
+
+    // Lấy danh sách địa chỉ của khách hàng từ database
+    List<DiaChi> danhSachDiaChi = diaChiRepository.findByKhachHangId(khachHang.getId());
+
+    // Tạo list kết quả
+    List<Map<String, Object>> resultList = danhSachDiaChi.stream()
+            .map(diaChi -> {
+                Map<String, Object> item = new HashMap<>();
+                item.put("hoTen", khachHang.getHoTen());
+                item.put("soDienThoai", khachHang.getSoDienThoai());
+                item.put("email", khachHang.getEmail());
+                item.put("diaChiCuThe", diaChi.getDiaChiCuThe());
+                item.put("thanhPho", diaChi.getThanhPho());
+                item.put("huyen", diaChi.getHuyen());
+                item.put("phuong", diaChi.getPhuong());
+                item.put("trangThai", diaChi.getTrangThai());
+                return item;
+            })
+            .collect(Collectors.toList());
+
+    return ResponseEntity.ok(Map.of(
+            "success", true,
+            "data", resultList
+    ));
+}
+
 
     // API thêm mới địa chỉ
     @PostMapping

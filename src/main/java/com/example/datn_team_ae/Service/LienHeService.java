@@ -10,6 +10,9 @@ import java.util.Optional;
 
 @Service
 public interface LienHeService {
+    long demTatCa();
+    long demTheoTrangThai(TrangThaiLienHe trangThai);
+
     LienHe guiLienHe(LienHeDTO dto);
     List<LienHe> layTatCa();
     Optional<LienHe> timTheoId(Long id);

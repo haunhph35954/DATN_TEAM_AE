@@ -19,7 +19,7 @@
     }
 
     .modal-header {
-        background: linear-gradient(to right, #007bff, #0056b3);
+        background: linear-gradient(to right, #7562b9, #6b00b3);
         color: white;
         border-radius: 12px 12px 0 0;
     }
@@ -72,14 +72,27 @@
     <div th:replace="~{admin/fragments/sidebar :: sidebar}"></div>
 
     <!-- =============================================== -->
+    <!--    tiêu đề chữ-->
+    <style>
+        .content-header {
+            background: linear-gradient(to right, #3a3f51, #2c2f3e);
+            padding: 20px;
+            border-radius: 12px 12px 0 0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
 
+        .content-header h2 {
+            color: white;
+            font-weight: 700;
+            margin: 0;
+        }
+    </style>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>
-                Phiếu Giảm Giá
-            </h1>
+            <h2>🏷️ Phiếu giảm giá hóa đơn</h2>
         </section>
 
         <!-- Main content -->
@@ -151,7 +164,7 @@
                                 <div class="d-flex gap-3">
                                     <div class="form-group w-50">
                                         <label class="fw-bold">Mã Phiếu Giảm Giá</label>
-                                        <input type="text" id="maPGG" class="form-control" readonly/>
+                                            <input type="text" id="maPGG" class="form-control" readonly/>
                                     </div>
                                     <div class="form-group w-50">
                                         <label class="fw-bold">Tên Phiếu Giảm Giá</label>
