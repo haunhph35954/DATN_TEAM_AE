@@ -6,439 +6,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <style>
-    :root {
-        --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        --danger-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-        --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        --hover-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        --border-radius: 15px;
-        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
 
-    * {
-        transition: var(--transition);
-    }
-
-    body {
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    .content-wrapper {
-        background: transparent;
-        padding: 20px;
-    }
-
-    .modern-card {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        border-radius: var(--border-radius);
-        box-shadow: var(--card-shadow);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        overflow: hidden;
-        transition: var(--transition);
-    }
-
-    .modern-card:hover {
-        box-shadow: var(--hover-shadow);
-        transform: translateY(-5px);
-    }
-
-    .glass-header {
-        background: var(--primary-gradient);
-        color: white;
-        padding: 20px;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .glass-header::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" stop-color="rgba(255,255,255,.1)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/></radialGradient></defs><circle cx="10" cy="10" r="10" fill="url(%23a)"/><circle cx="80" cy="5" r="5" fill="url(%23a)"/></svg>');
-        opacity: 0.1;
-    }
-
-    .invoice-card {
-        background: white;
-        border-radius: var(--border-radius);
-        box-shadow: var(--card-shadow);
-        border: 2px solid transparent;
-        position: relative;
-        overflow: hidden;
-        transition: var(--transition);
-        cursor: pointer;
-    }
-
-    .invoice-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: var(--primary-gradient);
-        transform: scaleX(0);
-        transition: var(--transition);
-    }
-
-    .invoice-card:hover::before {
-        transform: scaleX(1);
-    }
-
-    .invoice-card:hover {
-        transform: translateY(-8px);
-        box-shadow: var(--hover-shadow);
-    }
-
-    .selected-hoa-don {
-        border: 2px solid #667eea !important;
-        box-shadow: 0 0 30px rgba(102, 126, 234, 0.3) !important;
-        transform: translateY(-8px) !important;
-    }
-
-    .selected-hoa-don::before {
-        transform: scaleX(1) !important;
-    }
-
-    .invoice-header {
-        background: var(--primary-gradient);
-        color: white;
-        padding: 15px;
-        text-align: center;
-        position: relative;
-    }
-
-    .invoice-body {
-        padding: 20px;
-        text-align: center;
-    }
-
-    .invoice-footer {
-        background: rgba(102, 126, 234, 0.1);
-        padding: 10px;
-        text-align: center;
-        border-top: 1px solid rgba(102, 126, 234, 0.2);
-    }
-
-    .btn-gradient {
-        background: var(--primary-gradient);
-        border: none;
-        color: white;
-        padding: 12px 24px;
-        border-radius: 25px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-        transition: var(--transition);
-    }
-
-    .btn-gradient:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-        color: white;
-    }
-
-    .btn-success-gradient {
-        background: var(--success-gradient);
-        border: none;
-        color: white;
-        padding: 12px 24px;
-        border-radius: 25px;
-        font-weight: 600;
-        box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
-    }
-
-    .btn-success-gradient:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(79, 172, 254, 0.4);
-        color: white;
-    }
-
-    .btn-danger-gradient {
-        background: var(--danger-gradient);
-        border: none;
-        color: white;
-        padding: 8px 16px;
-        border-radius: 20px;
-        font-weight: 600;
-        box-shadow: 0 4px 15px rgba(250, 112, 154, 0.3);
-    }
-
-    .btn-danger-gradient:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(250, 112, 154, 0.4);
-        color: white;
-    }
-
-    .delete-btn {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(255, 255, 255, 0.9);
-        backdrop-filter: blur(10px);
-        border: 2px solid rgba(250, 112, 154, 0.3);
-        color: #fa709a;
-        transition: var(--transition);
-        z-index: 10;
-    }
-
-    .delete-btn:hover {
-        background: var(--danger-gradient);
-        color: white;
-        transform: scale(1.1);
-    }
-
-    .product-table {
-        background: white;
-        border-radius: var(--border-radius);
-        overflow: hidden;
-        box-shadow: var(--card-shadow);
-    }
-
-    .table thead th {
-        background: var(--primary-gradient);
-        color: white;
-        border: none;
-        padding: 15px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-
-    .table tbody tr {
-        transition: var(--transition);
-    }
-
-    .table tbody tr:hover {
-        background: rgba(102, 126, 234, 0.05);
-        transform: scale(1.01);
-    }
-
-    .product-image {
-        width: 70px;
-        height: 70px;
-        object-fit: cover;
-        border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        transition: var(--transition);
-    }
-
-    .product-image:hover {
-        transform: scale(1.1);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    .status-badge {
-        padding: 8px 16px;
-        border-radius: 20px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-size: 0.8em;
-    }
-
-    .status-success {
-        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        color: white;
-    }
-
-    .status-danger {
-        background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-        color: white;
-    }
-
-    .form-control {
-        border-radius: 10px;
-        border: 2px solid rgba(102, 126, 234, 0.1);
-        padding: 12px 16px;
-        transition: var(--transition);
-    }
-    .modal {
-        z-index: 1055 !important;
-    }
-
-    .modal-backdrop.show {
-        z-index: 1050;
-    }
-
-    .wrapper, .content-wrapper {
-        z-index: auto !important;
-    }
-
-    .form-control:focus {
-        border-color: #667eea;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-    }
-
-    .modal-content {
-        border-radius: var(--border-radius);
-        border: none;
-        overflow: hidden;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    }
-
-    .modal-header {
-        background: var(--primary-gradient);
-        color: white;
-        border: none;
-        padding: 20px;
-    }
-
-    .modal-body {
-        padding: 30px;
-    }
-
-    .info-section {
-        background: rgba(255, 255, 255, 0.8);
-        backdrop-filter: blur(10px);
-        border-radius: var(--border-radius);
-        padding: 25px;
-        margin: 20px 0;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        box-shadow: var(--card-shadow);
-    }
-
-    .section-title {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: #333;
-        margin-bottom: 20px;
-        padding-bottom: 15px;
-        border-bottom: 3px solid transparent;
-        background: var(--primary-gradient);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-
-    .section-title::after {
-        content: '';
-        flex: 1;
-        height: 3px;
-        background: var(--primary-gradient);
-        border-radius: 2px;
-        margin-left: 20px;
-    }
-
-    .info-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 12px 0;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    }
-
-    .info-label {
-        font-weight: 600;
-        color: #555;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .info-value {
-        font-weight: 700;
-        color: #333;
-    }
-
-    .payment-total {
-        background: var(--success-gradient);
-        color: white;
-        padding: 20px;
-        border-radius: var(--border-radius);
-        text-align: center;
-        margin: 20px 0;
-        box-shadow: 0 8px 25px rgba(79, 172, 254, 0.3);
-    }
-
-    .form-switch .form-check-input {
-        width: 3rem;
-        height: 1.5rem;
-        background-color: rgba(0, 0, 0, 0.1);
-        border: none;
-        border-radius: 2rem;
-    }
-
-    .form-switch .form-check-input:checked {
-        background: var(--success-gradient);
-        border-color: transparent;
-    }
-
-    .animate-fade-in {
-        animation: fadeIn 0.6s ease-out;
-    }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .quantity-input {
-        max-width: 80px;
-        text-align: center;
-        border-radius: 8px;
-    }
-
-    .price-highlight {
-        background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-weight: 800;
-        font-size: 1.1em;
-    }
-
-    .customer-info {
-        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-        border-radius: var(--border-radius);
-        padding: 20px;
-        border: 2px solid rgba(102, 126, 234, 0.2);
-    }
-
-    .floating-action {
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        z-index: 1000;
-    }
-
-    .pulse {
-        animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-        0% {
-            box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7);
-        }
-        70% {
-            box-shadow: 0 0 0 10px rgba(102, 126, 234, 0);
-        }
-        100% {
-            box-shadow: 0 0 0 0 rgba(102, 126, 234, 0);
-        }
-    }
 </style>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -873,8 +441,8 @@
                     <div class="row">
                         <!-- Cột thông tin giao hàng bên trái -->
                         <div class="col-md-6">
-                            <h3><i class="fas fa-shipping-fast" style="font-size: 24px;"></i> Thông tin giao hàng
-                            </h3>
+                            <h3><i class="fas fa-shipping-fast" style="font-size: 24px;"></i> Thông tin giao hàng</h3>
+
 
                             <div class="mt-3" id="shippingForm" style="display: none;">
                                 <div class="card card-body">
@@ -886,7 +454,7 @@
                                              id="payLaterSection"
                                              th:style="${hoaDon.loaiHoaDon != 'Giao Hàng' ? 'display: none;' : 'display: flex;'}">
                                             <i class="fas fa-money-bill-wave me-2"></i>
-                                            <span class="me-auto fw-bold">Trả Sau:</span>
+                                            <span class="me-auto fw-bold">Form thông tin Trả Sau:</span>
                                             <div class="form-check form-switch">
                                                 <input id="payLaterSwitch" class="form-check-input" type="checkbox"
                                                        th:data-hoa-don-id="${hoaDon.id}"
@@ -896,14 +464,14 @@
 
                                         <div class="row">
                                             <div class="col-md-12 mb-3">
-                                                <input type="text" name="nguoiNhan" class="form-control w-100"
+                                                <input type="text" name="nguoiNhan" class="form-control w-100" placeholder="Nhập họ tên người nhận"
                                                        id="shippingNguoiNhan"
                                                        th:value="${hoaDon.nguoiNhan != null ? hoaDon.nguoiNhan : ''}">
                                                 <span class="text-danger" id="shippingNguoiNhanError"></span>
                                             </div>
 
                                             <div class="col-md-12 mb-3">
-                                                <input type="text" name="soDienThoai" class="form-control w-100"
+                                                <input type="text" name="soDienThoai" class="form-control w-100" placeholder="Nhập SĐT người nhận"
                                                        id="shippingSoDienThoai"
                                                        th:value="${hoaDon.soDienThoai != null ? hoaDon.soDienThoai : ''}">
                                                 <span class="text-danger" id="shippingSoDienThoaiError"></span>
@@ -955,7 +523,6 @@
                       rows="3" th:text="${hoaDon.ghiChu}"></textarea>
                                             </div>
                                         </div>
-
                                         <button type="submit" class="btn btn-primary w-100">Cập nhật giao hàng</button>
                                     </form>
                                 </div>
@@ -980,62 +547,7 @@
                                         data-bs-target="#paymentModal">
                                     <i class="bi bi-credit-card"></i>
                                 </button>
-                                <!-- Modal chọn phương thức thanh toán -->
-                                <div class="modal fade" id="paymentModal" tabindex="-1"
-                                     aria-labelledby="paymentModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="paymentModalLabel">Chọn phương thức
-                                                    thanh
-                                                    toán</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form id="paymentMethodForm">
-                                                    <input type="hidden" name="hoaDonId"
-                                                           th:value="${hoaDon != null ? hoaDon.id : ''}">
 
-                                                    <div class="mb-3">
-                                                        <label class="form-label"><i class="fas fa-credit-card"></i>
-                                                            Phương thức thanh toán:</label>
-                                                        <div class="btn-group w-100" role="group"
-                                                             aria-label="Chọn phương thức thanh toán">
-                                                            <th:block
-                                                                    th:each="phuongThucThanhToan : ${listPhuongThucThanhToan}">
-                                                                <input type="hidden" id="phiShip"
-                                                                       th:value="${hoaDon.phiShip}">
-                                                                <input type="hidden" id="listPhieuGiamGia"
-                                                                       th:value="${hoaDon.phieuGiamGia != null ? hoaDon.phieuGiamGia.giaTriGiam : 0}">
-                                                                <input type="radio" class="btn-check"
-                                                                       name="phuongThucThanhToanId"
-                                                                       th:id="'payment-' + ${phuongThucThanhToan.id}"
-                                                                       th:value="${phuongThucThanhToan.id}"
-                                                                       autocomplete="off">
-                                                                <label class="btn btn-outline-primary"
-                                                                       th:for="'payment-' + ${phuongThucThanhToan.id}"
-                                                                       th:text="${phuongThucThanhToan.tenPhuongThuc}"></label>
-                                                            </th:block>
-                                                        </div>
-                                                    </div>
-
-
-                                                    <!-- Form nhập số tiền (chỉ hiển thị nếu chọn Tiền Mặt) -->
-                                                    <div id="paymentDetails">
-                                                        <!-- Nội dung động sẽ hiển thị ở đây -->
-                                                    </div>
-
-                                                    <button type="button" id="addPaymentMethodButton"
-                                                            class="btn btn-primary">
-                                                        Cập nhật
-                                                    </button>
-
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
 
                             <!-- Phiếu Giảm Giá -->
@@ -1052,58 +564,7 @@
                                     <i class="fas fa-tag"></i>
                                 </button>
 
-                                <!-- Modal phiếu giảm giá -->
-                                <div class="modal fade" id="discountModal" tabindex="-1"
-                                     aria-labelledby="discountModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="discountModalLabel">Chọn phiếu giảm
-                                                    giá</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form id="applyDiscountForm">
-                                                    <input type="hidden" name="hoaDonId" id="hoaDonId"
-                                                           th:value="${hoaDon != null ? hoaDon.id : ''}">
-                                                    <div class="mb-3">
-                                                        <div class="mb-3">
-                                                            <label for="tenPhieuGiamGia" class="form-label fw-bold">
-                                                                <i class="bi bi-tags-fill text-primary"></i> Chọn Phiếu
-                                                                Giảm Giá
-                                                            </label>
-                                                            <select id="tenPhieuGiamGia" name="tenPhieuGiamGia"
-                                                                    class="form-select border-primary shadow-sm rounded-pill">
-                                                                <option value="">🚫 Không áp dụng phiếu giảm giá</option>
-                                                                <th:block
-                                                                        th:if="${listPhieuGiamGia != null and not #lists.isEmpty(listPhieuGiamGia)}">
-                                                                    <th:block
-                                                                            th:each="phieuGiamGia : ${listPhieuGiamGia}">
-                                                                        <option th:value="${phieuGiamGia.tenPhieuGiamGia}"
-                                                                                th:text="${phieuGiamGia.tenPhieuGiamGia +
-                        ' ( ' + #numbers.formatInteger(phieuGiamGia.giaTriGiam, 3, 'COMMA') + ' VND ) ' +
-                        (phieuGiamGia.dieuKien > 0 ? '( Điều Kiện ≥ ' + #numbers.formatInteger(phieuGiamGia.dieuKien, 3, 'COMMA') + ' VND )' : '')}">
-                                                                        </option>
-                                                                    </th:block>
-                                                                </th:block>
-                                                                <th:block
-                                                                        th:if="${listPhieuGiamGia == null or #lists.isEmpty(listPhieuGiamGia)}">
-                                                                    <option value="" disabled selected>⛔ Không có phiếu
-                                                                        giảm giá
-                                                                    </option>
-                                                                </th:block>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <button type="button" class="btn btn-primary"
-                                                            onclick="applyPhieuGiamGia(this)">Áp dụng
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
 
                             <!-- Giao Hàng -->
@@ -1213,6 +674,116 @@
         </section>
         <!-- /.content -->
     </div>
+    <!-- Modal phiếu giảm giá -->
+    <div class="modal fade" id="discountModal" tabindex="-1"
+         aria-labelledby="discountModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="discountModalLabel">Chọn phiếu giảm
+                        giá</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="applyDiscountForm">
+                        <input type="hidden" name="hoaDonId" id="hoaDonId"
+                               th:value="${hoaDon != null ? hoaDon.id : ''}">
+                        <div class="mb-3">
+                            <div class="mb-3">
+                                <label for="tenPhieuGiamGia" class="form-label fw-bold">
+                                    <i class="bi bi-tags-fill text-primary"></i> Chọn Phiếu
+                                    Giảm Giá
+                                </label>
+                                <select id="tenPhieuGiamGia" name="tenPhieuGiamGia"
+                                        class="form-select border-primary shadow-sm rounded-pill">
+                                    <option value="">🚫 Không áp dụng phiếu giảm giá</option>
+                                    <th:block
+                                            th:if="${listPhieuGiamGia != null and not #lists.isEmpty(listPhieuGiamGia)}">
+                                        <th:block
+                                                th:each="phieuGiamGia : ${listPhieuGiamGia}">
+                                            <option th:value="${phieuGiamGia.tenPhieuGiamGia}"
+                                                    th:text="${phieuGiamGia.tenPhieuGiamGia +
+                        ' ( ' + #numbers.formatInteger(phieuGiamGia.giaTriGiam, 3, 'COMMA') + ' VND ) ' +
+                        (phieuGiamGia.dieuKien > 0 ? '( Điều Kiện ≥ ' + #numbers.formatInteger(phieuGiamGia.dieuKien, 3, 'COMMA') + ' VND )' : '')}">
+                                            </option>
+                                        </th:block>
+                                    </th:block>
+                                    <th:block
+                                            th:if="${listPhieuGiamGia == null or #lists.isEmpty(listPhieuGiamGia)}">
+                                        <option value="" disabled selected>⛔ Không có phiếu
+                                            giảm giá
+                                        </option>
+                                    </th:block>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary"
+                                onclick="applyPhieuGiamGia(this)">Áp dụng
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal chọn phương thức thanh toán -->
+    <div class="modal fade" id="paymentModal" tabindex="-1"
+         aria-labelledby="paymentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="paymentModalLabel">Chọn phương thức
+                        thanh
+                        toán</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="paymentMethodForm">
+
+
+                        <input type="hidden" name="hoaDonId"
+                               th:value="${hoaDon != null ? hoaDon.id : ''}">
+                        <div class="mb-3">
+                            <label class="form-label"><i class="fas fa-credit-card"></i>
+                                Phương thức thanh toán:</label>
+                            <div class="btn-group w-100" role="group"
+                                 aria-label="Chọn phương thức thanh toán">
+                                <th:block
+                                        th:each="phuongThucThanhToan : ${listPhuongThucThanhToan}">
+                                    <input type="hidden" id="phiShip"
+                                           th:value="${hoaDon.phiShip}">
+                                    <input type="hidden" id="listPhieuGiamGia"
+                                           th:value="${hoaDon.phieuGiamGia != null ? hoaDon.phieuGiamGia.giaTriGiam : 0}">
+                                    <input type="radio" class="btn-check"
+                                           name="phuongThucThanhToanId"
+                                           th:id="'payment-' + ${phuongThucThanhToan.id}"
+                                           th:value="${phuongThucThanhToan.id}"
+                                           autocomplete="off">
+                                    <label class="btn btn-outline-primary"
+                                           th:for="'payment-' + ${phuongThucThanhToan.id}"
+                                           th:text="${phuongThucThanhToan.tenPhuongThuc}"></label>
+                                </th:block>
+                            </div>
+                        </div>
+
+
+                        <!-- Form nhập số tiền (chỉ hiển thị nếu chọn Tiền Mặt) -->
+                        <div id="paymentDetails">
+                            <!-- Nội dung động sẽ hiển thị ở đây -->
+                        </div>
+
+                        <button type="button" id="addPaymentMethodButton"
+                                class="btn btn-primary">
+                            Cập nhật
+                        </button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- /.content-wrapper -->
     <div th:replace="~{admin/fragments/footer :: footer}"></div>
 </div>

@@ -36,12 +36,13 @@ public class XuatXuApiController {
                 ));
             }
 
-            if (xuatXuRequest.getQuocGia().isEmpty()) {
+            if (xuatXuRequest.getQuocGia() == null || xuatXuRequest.getQuocGia().trim().isEmpty()) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
                         "success", false,
-                        "message", "Quốc gia không được để trống"
+                        "message", "Quốc gia không được để trống hoặc chỉ chứa khoảng trắng"
                 ));
             }
+
 
             // Lấy nhân viên từ session
             NhanVien nhanVienSession = (NhanVien) session.getAttribute("userNhanVien");

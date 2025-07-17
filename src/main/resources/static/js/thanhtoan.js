@@ -275,10 +275,46 @@ function validateForm() {
         { id: "ward", message: "Vui lòng chọn phường/xã." }
     ];
 
-    requiredFields.forEach(field => {
-        let element = document.getElementById(field.id);
+    // Validate họ tên
+    let fullName = document.getElementById("fullName").value;
+    if (
+        fullName.trim() === "" ||
+        fullName.startsWith(" ") ||
+        fullName.replace(/\s/g, "") === ""
+    ) {
+        showError("fullName", "Họ tên không được để trống, bắt đầu bằng dấu cách hoặc toàn dấu cách.");
+        isValid = false;
+    }
+
+    // Validate số điện thoại
+    let phoneNumber = document.getElementById("phoneNumber").value;
+    let phoneRegex = /^0\d{9}$/; // Bắt đầu bằng 0, 10 chữ số tổng
+    if (!phoneRegex.test(phoneNumber)) {
+        showError("phoneNumber", "Số điện thoại phải bắt đầu bằng 0 và gồm 10 chữ số.");
+        isValid = false;
+    }
+
+    // Validate địa chỉ cụ thể
+    let address = document.getElementById("specific-address").value;
+    if (
+        address.trim() === "" ||
+        address.startsWith(" ") ||
+        address.replace(/\s/g, "") === ""
+    ) {
+        showError("specific-address", "Địa chỉ cụ thể không được để trống, bắt đầu bằng dấu cách hoặc toàn dấu cách.");
+        isValid = false;
+    }
+
+    // Validate select các trường khác
+    ["province", "district", "ward"].forEach(id => {
+        let element = document.getElementById(id);
         if (!element || element.value.trim() === "") {
-            showError(field.id, field.message);
+            let messages = {
+                province: "Vui lòng chọn tỉnh/thành phố.",
+                district: "Vui lòng chọn quận/huyện.",
+                ward: "Vui lòng chọn phường/xã."
+            };
+            showError(id, messages[id]);
             isValid = false;
         }
     });

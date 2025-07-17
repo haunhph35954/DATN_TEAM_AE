@@ -44,6 +44,8 @@ public class InvoiceController {
                 model.addAttribute("hoaDonChiTiet", hoaDonChiTietList);
                 model.addAttribute("hoaDon", hoaDon);
             }
+
+
         }
         return "Admin/Shop/invoice";
     }

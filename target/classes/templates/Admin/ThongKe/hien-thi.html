@@ -1,414 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head th:replace="admin/fragments/head :: head"></head>
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
-    * {
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: 'Inter', sans-serif !important;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
-        margin: 0;
-        padding: 0;
-    }
-
-    .content-wrapper {
-        background: transparent;
-        padding: 2rem;
-    }
-
-    .content-header h1 {
-        color: white;
-        font-weight: 800;
-        font-size: 2.5rem;
-        text-align: center;
-        margin-bottom: 2rem;
-        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    }
-
-    /* Modern Cards */
-    .modern-card {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(20px);
-        border-radius: 24px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        transition: all 0.4s ease;
-        overflow: hidden;
-        position: relative;
-    }
-
-    .modern-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #f5576c);
-        background-size: 300% 300%;
-        animation: gradientShift 4s ease infinite;
-    }
-
-    @keyframes gradientShift {
-        0%, 100% {
-            background-position: 0% 50%;
-        }
-        50% {
-            background-position: 100% 50%;
-        }
-    }
-
-    .modern-card:hover {
-        transform: translateY(-8px) scale(1.02);
-        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
-    }
-
-    /* Stats Cards */
-    .stats-card {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border-radius: 20px;
-        padding: 2rem;
-        margin-bottom: 1.5rem;
-        position: relative;
-        overflow: hidden;
-        transition: all 0.3s ease;
-    }
-
-    .stats-card::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        right: -50%;
-        width: 100%;
-        height: 200%;
-        background: rgba(255, 255, 255, 0.1);
-        transform: rotate(45deg);
-        transition: all 0.3s ease;
-    }
-
-    .stats-card:hover::before {
-        right: -30%;
-    }
-
-    .stats-card:nth-child(2) {
-        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    }
-
-    .stats-card:nth-child(3) {
-        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-    }
-
-    .stats-card .card-title {
-        font-size: 1.1rem;
-        font-weight: 600;
-        margin-bottom: 1rem;
-        position: relative;
-        z-index: 2;
-    }
-
-    .stats-card .display-4 {
-        font-size: 2.5rem;
-        font-weight: 800;
-        margin-bottom: 0.5rem;
-        position: relative;
-        z-index: 2;
-    }
-
-    .stats-card .h4 {
-        font-size: 1.2rem;
-        font-weight: 500;
-        position: relative;
-        z-index: 2;
-        opacity: 0.9;
-    }
-
-    /* Chart Container */
-    .chart-container {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(20px);
-        border-radius: 24px;
-        padding: 2rem;
-        margin: 2rem 0;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    }
-
-    .chart-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 1.5rem;
-        border-radius: 20px;
-        margin-bottom: 2rem;
-        text-align: center;
-    }
-
-    /* Filter Buttons */
-    .filter-buttons {
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin-bottom: 2rem;
-    }
-
-    .filter-btn {
-        background: rgba(255, 255, 255, 0.9);
-        border: 2px solid transparent;
-        border-radius: 50px;
-        padding: 0.8rem 1.5rem;
-        font-weight: 600;
-        color: #667eea;
-        transition: all 0.3s ease;
-        cursor: pointer;
-        backdrop-filter: blur(10px);
-    }
-
-    .filter-btn:hover, .filter-btn.active {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border-color: rgba(255, 255, 255, 0.3);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
-    }
-
-    /* Custom Date Range */
-    .custom-date-range {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(20px);
-        border-radius: 20px;
-        padding: 1.5rem;
-        margin: 1rem 0;
-        display: none;
-    }
-
-    .date-input {
-        border: 2px solid rgba(102, 126, 234, 0.2);
-        border-radius: 15px;
-        padding: 1rem;
-        font-size: 1rem;
-        transition: all 0.3s ease;
-        background: rgba(255, 255, 255, 0.8);
-    }
-
-    .date-input:focus {
-        border-color: #667eea;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        outline: none;
-    }
-
-    /* Tables */
-    .modern-table-container {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(20px);
-        border-radius: 24px;
-        padding: 2rem;
-        margin: 2rem 0;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    }
-
-    .modern-table {
-        border-radius: 15px;
-        overflow: hidden;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    }
-
-    .modern-table thead {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-    }
-
-    .modern-table th {
-        padding: 1.5rem 1rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        font-size: 0.85rem;
-        letter-spacing: 1px;
-    }
-
-    .modern-table tbody tr {
-        transition: all 0.3s ease;
-        background: rgba(255, 255, 255, 0.8);
-    }
-
-    .modern-table tbody tr:hover {
-        background: rgba(102, 126, 234, 0.1);
-        transform: scale(1.01);
-    }
-
-    .modern-table td {
-        padding: 1.5rem 1rem;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    }
-
-    .product-image {
-        border-radius: 12px;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    .product-image:hover {
-        transform: scale(1.1);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    }
-
-    /* Growth Cards */
-    .growth-card {
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.8) 100%);
-        backdrop-filter: blur(20px);
-        border-radius: 20px;
-        padding: 1.5rem;
-        margin-bottom: 1rem;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .growth-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
-        transition: all 0.6s ease;
-    }
-
-    .growth-card:hover::before {
-        left: 100%;
-    }
-
-    .growth-card:hover {
-        transform: translateX(5px);
-        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
-    }
-
-    .growth-value {
-        font-size: 1.3rem !important;
-        font-weight: 700 !important;
-        color: #667eea !important;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .section-title {
-        font-size: 1.8rem;
-        font-weight: 700;
-        color: #2c3e50;
-        text-align: center;
-        margin-bottom: 2rem;
-        position: relative;
-    }
-
-    .section-title::after {
-        content: '';
-        position: absolute;
-        bottom: -10px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 60px;
-        height: 4px;
-        background: linear-gradient(90deg, #667eea, #764ba2);
-        border-radius: 2px;
-    }
-
-    /* Status Progress Bar */
-    .status-progress {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border-radius: 20px;
-        padding: 0.5rem 1rem;
-        font-weight: 600;
-        text-align: center;
-        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-    }
-
-    .status-progress.danger {
-        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        box-shadow: 0 4px 12px rgba(245, 87, 108, 0.3);
-    }
-
-    /* Chart Canvas Styling */
-    #myChart, #orderStatusChart {
-        border-radius: 15px;
-        background: rgba(255, 255, 255, 0.9);
-        padding: 1rem;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-        .content-wrapper {
-            padding: 1rem;
-        }
-
-        .content-header h1 {
-            font-size: 2rem;
-        }
-
-        .filter-buttons {
-            gap: 0.5rem;
-        }
-
-        .filter-btn {
-            padding: 0.6rem 1rem;
-            font-size: 0.9rem;
-        }
-
-        .stats-card {
-            padding: 1.5rem;
-        }
-
-        .modern-table th,
-        .modern-table td {
-            padding: 1rem 0.5rem;
-        }
-    }
-
-    /* Animation for loading */
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .modern-card,
-    .stats-card,
-    .chart-container,
-    .modern-table-container {
-        animation: fadeInUp 0.6s ease forwards;
-    }
-
-    .modern-card:nth-child(2) {
-        animation-delay: 0.1s;
-    }
-
-    .modern-card:nth-child(3) {
-        animation-delay: 0.2s;
-    }
-
-    .modern-card:nth-child(4) {
-        animation-delay: 0.3s;
-    }
-</style>
-
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
     <div th:replace="admin/fragments/header :: header"></div>
     <div th:replace="admin/fragments/sidebar :: sidebar"></div>
+<!--    tiêu đề chữ-->
+<style>
+    .content-header {
+        background: linear-gradient(to right, #3a3f51, #2c2f3e);
+        padding: 20px;
+        border-radius: 12px 12px 0 0;
+        margin-bottom: 20px;
+        text-align: center;
+    }
 
+    .content-header h2 {
+        color: white;
+        font-weight: 700;
+        margin: 0;
+    }
+</style>
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>📊 Thống Kê Dashboard</h1>
+            <h2>📊 Thống Kê Dashboard</h2>
         </section>
 
         <section class="content">
@@ -482,107 +97,104 @@
                 <!-- Data Tables Row -->
                 <div class="row">
                     <!-- Top Products -->
-                    <div class="col-md-6">
-                        <div class="modern-table-container">
-                            <h2 class="section-title">🏆 Top Sản Phẩm Bán Chạy</h2>
-                            <div class="table-responsive">
-                                <table class="table modern-table" id="productTable">
-                                    <thead>
-                                    <tr>
-                                        <th>STT</th>
-                                        <th>Hình Ảnh</th>
-                                        <th>Tên Sản Phẩm</th>
-                                        <th>Giá</th>
-                                        <th>Số Lượng Bán</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr th:each="product, iterStat : ${productsPage}">
-                                        <td><span class="badge badge-primary">#<span
-                                                th:text="${iterStat.index + 1}"></span></span></td>
-                                        <td>
-                                            <img th:src="${product[0]}" alt="Product" width="60" class="product-image">
-                                        </td>
-                                        <td><strong th:text="${product[1]}"></strong></td>
-                                        <td><span class="text-success font-weight-bold"
-                                                  th:text="${#numbers.formatInteger(product[2], 3, 'COMMA') + ' VND'}"></span>
-                                        </td>
-                                        <td><span class="badge badge-danger badge-lg" th:text="${product[4]}"></span>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+
 
                     <!-- Order Status Chart -->
-                    <div class="col-md-6">
+                    <div class="col-md-6 w-100">
                         <div class="modern-table-container">
-                            <h2 class="section-title">📋 Trạng Thái Đơn Hàng</h2>
+                            <h2>📋 Trạng Thái Đơn Hàng</h2>
                             <div class="d-flex justify-content-center">
-                                <canvas id="orderStatusChart" style="max-width: 400px; max-height: 400px;"></canvas>
+                                <canvas id="orderStatusChart" style="width: 100%; max-height: 400px;"></canvas>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Low Stock and Growth Row -->
-                <div class="row">
-                    <!-- Low Stock Products -->
-                    <div class="col-md-6">
-                        <div class="modern-table-container">
-                            <h2 class="section-title">⚠️ Sản Phẩm Sắp Hết Hàng</h2>
-                            <div class="table-responsive">
-                                <table class="table modern-table" id="productTable1">
-                                    <thead>
-                                    <tr>
-                                        <th>STT</th>
-                                        <th>Hình Ảnh</th>
-                                        <th>Tên Sản Phẩm</th>
-                                        <th>Giá</th>
-                                        <th>Còn Lại</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr th:each="lowStockProduct, iterStat : ${lowStockProducts}">
-                                        <td><span class="badge badge-warning">#<span
-                                                th:text="${iterStat.index + 1}"></span></span></td>
-                                        <td>
-                                            <img th:if="${not #lists.isEmpty(lowStockProduct.hinhAnh)}"
-                                                 th:src="${lowStockProduct.hinhAnh[0].urlHinhAnh}"
-                                                 alt="Product" width="60" class="product-image">
-                                        </td>
-                                        <td>
-                                            <div>
-                                                <strong th:text="${lowStockProduct.sanPham?.tenSanPham}"></strong><br>
-                                                <small class="text-muted">
-                                                    <span th:text="${lowStockProduct.mauSac?.tenMauSac}"></span> -
-                                                    <span th:text="${lowStockProduct.kichThuoc?.tenKichThuoc}"></span>
-                                                </small><br>
-                                                <div th:classappend="${lowStockProduct.trangThai == 'Còn Hàng' ? 'status-progress' : 'status-progress danger'}"
-                                                     th:text="${lowStockProduct.trangThai}">
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td><span class="text-primary font-weight-bold"
-                                                  th:text="${lowStockProduct.gia != null ? #numbers.formatInteger(lowStockProduct.gia, 3, 'COMMA') + ' VND' : 'N/A'}"></span>
-                                        </td>
-                                        <td><span class="badge badge-danger badge-lg"
-                                                  th:text="${lowStockProduct.soLuong != null ? lowStockProduct.soLuong : '0'}"></span>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                <div class="col-md-6 w-100">
+                    <div class="modern-table-container">
+                        <h2>🏆 Top Sản Phẩm Bán Chạy</h2>
+                        <div class="table-responsive">
+                            <table class="table modern-table" id="productTable">
+                                <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Hình Ảnh</th>
+                                    <th>Tên Sản Phẩm</th>
+                                    <th>Giá</th>
+                                    <th>Số Lượng Bán</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="product, iterStat : ${productsPage}">
+                                    <td><span class="badge badge-primary">#<span
+                                            th:text="${iterStat.index + 1}"></span></span></td>
+                                    <td>
+                                        <img th:src="${product[0]}" alt="Product" width="60" class="product-image">
+                                    </td>
+                                    <td><strong th:text="${product[1]}"></strong></td>
+                                    <td><span class="text-success font-weight-bold"
+                                              th:text="${#numbers.formatInteger(product[2], 3, 'COMMA') + ' VND'}"></span>
+                                    </td>
+                                    <td><span class="badge badge-danger badge-lg" style="color: black;"  th:text="${product[4]}"></span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-
-                    <!-- Growth Stats -->
-                    <div class="col-md-6">
+                </div>
+                <div class="col-md-6 w-100">
+                    <div class="modern-table-container">
+                        <h2>⚠️ Sản Phẩm Sắp Hết Hàng</h2>
+                        <div class="table-responsive">
+                            <table class="table modern-table" id="productTable1">
+                                <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Hình Ảnh</th>
+                                    <th>Tên Sản Phẩm</th>
+                                    <th>Giá</th>
+                                    <th>Còn Lại</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="lowStockProduct, iterStat : ${lowStockProducts}">
+                                    <td><span class="badge badge-warning ">#<span
+                                            th:text="${iterStat.index + 1}"></span></span></td>
+                                    <td>
+                                        <img th:if="${not #lists.isEmpty(lowStockProduct.hinhAnh)}"
+                                             th:src="${lowStockProduct.hinhAnh[0].urlHinhAnh}"
+                                             alt="Product" width="60" class="product-image">
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <strong th:text="${lowStockProduct.sanPham?.tenSanPham}"></strong><br>
+                                            <small class="text-muted">
+                                                <span th:text="${lowStockProduct.mauSac?.tenMauSac}"></span> -
+                                                <span th:text="${lowStockProduct.kichThuoc?.tenKichThuoc}"></span>
+                                            </small><br>
+                                            <div th:classappend="${lowStockProduct.trangThai == 'Còn Hàng' ? 'status-progress' : 'status-progress danger'}"
+                                                 th:text="${lowStockProduct.trangThai}">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="text-primary font-weight-bold"
+                                              th:text="${lowStockProduct.gia != null ? #numbers.formatInteger(lowStockProduct.gia, 3, 'COMMA') + ' VND' : 'N/A'}"></span>
+                                    </td>
+                                    <td><span class="badge badge-danger badge-lg" style="color: black;"
+                                              th:text="${lowStockProduct.soLuong != null ? lowStockProduct.soLuong : '0'}"></span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- Low Stock and Growth Row -->
+                <div class="row">
+                    <div class="col-md-6 w-100">
                         <div class="modern-table-container">
-                            <h2 class="section-title">🚀 Tốc Độ Tăng Trưởng</h2>
-
+                            <h2>🚀 Tốc Độ Tăng Trưởng</h2>
                             <div class="growth-card">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <span class="font-weight-bold">📅 Doanh thu ngày</span>
@@ -790,6 +402,7 @@
             switch (filterValue) {
                 case '1':  // Hôm nay
                     filterDate = currentDate;
+                    filterDate.setHours(0, 0, 0, 0);
                     break;
                 case '7':  // 7 ngày gần nhất
                     filterDate = new Date(currentTimestamp - 7 * 24 * 60 * 60 * 1000); // Lấy thời điểm 7 ngày trước

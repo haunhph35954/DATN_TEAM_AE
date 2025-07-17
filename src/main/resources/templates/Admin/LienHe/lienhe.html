@@ -84,7 +84,36 @@
         <!-- Tiêu đề -->
         <section class="content-header">
             <h2>📬 Quản lý liên hệ khách hàng</h2>
+
+            <!-- Bộ lọc trạng thái -->
+            <div class="row justify-content-center mt-4 gx-3 gy-2">
+                <div class="col-auto">
+                    <a th:href="@{/admin/lien-he}" class="card-status">
+                        📨 Tất cả
+                        <span class="badge bg-secondary ms-1" th:text="${tongLienHe}">0</span>
+                    </a>
+                </div>
+                <div class="col-auto">
+                    <a th:href="@{/admin/lien-he?trangThai=CHUA_XU_LY}" class="card-status card-warning">
+                        ⏳ Chưa xử lý
+                        <span class="badge bg-warning text-dark ms-1" th:text="${chuaXuLy}">0</span>
+                    </a>
+                </div>
+                <div class="col-auto">
+                    <a th:href="@{/admin/lien-he?trangThai=DANG_XU_LY}" class="card-status card-info">
+                        ✍️ Đang xử lý
+                        <span class="badge bg-info text-dark ms-1" th:text="${dangXuLy}">0</span>
+                    </a>
+                </div>
+                <div class="col-auto">
+                    <a th:href="@{/admin/lien-he?trangThai=DA_XU_LY}" class="card-status card-success">
+                        ✅ Đã xử lý
+                        <span class="badge bg-success ms-1" th:text="${daXuLy}">0</span>
+                    </a>
+                </div>
+            </div>
         </section>
+
 
         <section class="content">
             <div class="box">
@@ -108,31 +137,44 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="lh : ${dsLienHe}">
-                                <td th:text="${lh.hoTen}" class="text-nowrap"></td>
-                                <td th:text="${lh.email}"></td>
-                                <td th:text="${lh.tieuDe}"></td>
-                                <td th:text="${lh.noiDung}" class="text-break"></td>
-                                <td>
-                                    <form th:action="@{/admin/lien-he/cap-nhat}" method="post"
-                                          class="d-flex align-items-center justify-content-center status-form">
-                                        <input type="hidden" name="id" th:value="${lh.id}" />
-                                        <select name="trangThai" class="form-select form-select-sm">
-                                            <option th:selected="${lh.trangThai != null and lh.trangThai.name() == 'CHUA_XU_LY'}" value="CHUA_XU_LY">Chưa xử lý</option>
-                                            <option th:selected="${lh.trangThai != null and lh.trangThai.name() == 'DANG_XU_LY'}" value="DANG_XU_LY">Đang xử lý</option>
-                                            <option th:selected="${lh.trangThai != null and lh.trangThai.name() == 'DA_XU_LY'}" value="DA_XU_LY">Đã xử lý</option>
-                                        </select>
-                                        <button class="btn btn-sm btn-success" type="submit">Lưu</button>
-                                    </form>
-                                </td>
+                            <tr th:each="lh : ${dsLienHe}" class="align-middle">
+                                <td th:text="${lh.hoTen}" class="fw-semibold text-nowrap"></td>
+                                <td th:text="${lh.email}" class="text-break"></td>
+                                <td th:text="${lh.tieuDe}" class="text-break"></td>
+                                <td th:text="${lh.noiDung}" class="text-break small"></td>
                                 <td class="text-center">
-                                    <form th:action="@{/admin/lien-he/xoa}" method="post" onsubmit="return confirm('Bạn có chắc chắn muốn xóa liên hệ này?')">
+                                    <!-- Form cập nhật trạng thái -->
+                                    <form th:action="@{/admin/lien-he/cap-nhat}" method="post"
+                                          class="d-flex align-items-center justify-content-center gap-2">
                                         <input type="hidden" name="id" th:value="${lh.id}" />
-                                        <button class="btn btn-sm btn-danger">Xóa</button>
+                                        <select name="trangThai" class="form-select form-select-sm w-auto">
+                                            <option th:selected="${lh.trangThai?.name() == 'CHUA_XU_LY'}" value="CHUA_XU_LY">🕒 Chưa xử lý</option>
+                                            <option th:selected="${lh.trangThai?.name() == 'DANG_XU_LY'}" value="DANG_XU_LY">✍️ Đang xử lý</option>
+                                            <option th:selected="${lh.trangThai?.name() == 'DA_XU_LY'}" value="DA_XU_LY">✅ Đã xử lý</option>
+                                        </select>
+                                        <button class="btn btn-success btn-sm px-3">Lưu</button>
+                                    </form>
+
+                                    <!-- Hiển thị trạng thái -->
+                                    <div class="mt-2 small">
+                                        <span th:if="${lh.trangThai == 'CHUA_XU_LY'}" class="badge bg-secondary">⏳ Chưa xử lý</span>
+                                        <span th:if="${lh.trangThai == 'DANG_XU_LY'}" class="badge bg-warning text-dark">✍️ Đang xử lý</span>
+                                        <span th:if="${lh.trangThai == 'DA_XU_LY'}" class="badge bg-success">✅ Đã xử lý</span>
+                                    </div>
+                                </td>
+
+                                <!-- Nút Xóa -->
+                                <td class="text-center">
+                                    <form th:action="@{/admin/lien-he/xoa}" method="post"
+                                          onsubmit="return confirm('Bạn có chắc chắn muốn xóa liên hệ này?')">
+                                        <input type="hidden" name="id" th:value="${lh.id}" />
+                                        <button class="btn btn-danger btn-sm px-3">🗑 Xóa</button>
                                     </form>
                                 </td>
                             </tr>
                             </tbody>
+
+
                         </table>
                     </div>
                 </div>
@@ -142,6 +184,116 @@
 
     <div th:replace="admin/fragments/footer :: footer"></div>
 </div>
+<!--mục xử lý-->
+<style>
+    /* Thẻ trạng thái */
+    .card-status {
+        display: inline-block;
+        padding: 12px 24px;
+        border-radius: 12px;
+        background-color: #343a40;
+        color: white;
+        font-weight: 600;
+        text-decoration: none;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s;
+        margin: 6px;
+        font-size: 1rem;
+    }
+
+    .card-status:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    /* Các loại trạng thái */
+    .card-warning {
+        background-color: #ffc107;
+        color: #000;
+    }
+
+    .card-info {
+        background-color: #0dcaf0;
+        color: #000;
+    }
+
+    .card-success {
+        background-color: #198754;
+        color: #fff;
+    }
+
+    .card-danger {
+        background-color: #dc3545;
+        color: #fff;
+    }
+
+    .card-secondary {
+        background-color: #6c757d;
+        color: #fff;
+    }
+
+    /* Bảng hiển thị */
+    .table-responsive {
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        overflow-x: auto;
+        margin-top: 20px;
+        padding: 16px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 12px 16px;
+        text-align: left;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    thead {
+        background-color: #f8f9fa;
+    }
+
+    tbody tr:hover {
+        background-color: #f1f1f1;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    /* Form chọn trạng thái */
+    .status-form select {
+        background-color: #f8f9fa;
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        padding: 6px 12px;
+        font-size: 1rem;
+        transition: border-color 0.2s;
+    }
+
+    .status-form select:focus {
+        border-color: #86b7fe;
+        outline: none;
+        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    }
+
+    /* Responsive thiết bị nhỏ */
+    @media (max-width: 768px) {
+        .card-status {
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        th, td {
+            font-size: 14px;
+        }
+    }
+</style>
 
 <script>
     // Tự động ẩn alert sau 3 giây

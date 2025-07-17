@@ -10,4 +10,7 @@ import java.util.List;
 public interface LienHeRepository extends JpaRepository<LienHe, Long> {
     List<LienHe> findByTrangThai(TrangThaiLienHe trangThai);
 
+
+    long countByTrangThai(TrangThaiLienHe trangThai); // <-- thêm dòng này
+
 }

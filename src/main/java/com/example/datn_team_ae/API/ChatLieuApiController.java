@@ -32,13 +32,13 @@ public class ChatLieuApiController {
                         "message", "Tên chất liệu đã tồn tại"
                 ));
             }
-
-            if (chatLieuRequest.getTenChatLieu().isEmpty()) {
+            if (chatLieuRequest.getTenChatLieu() == null || chatLieuRequest.getTenChatLieu().trim().isEmpty()) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
                         "success", false,
-                        "message", "Tên chất liệu không được để trống"
+                        "message", "Tên chất liệu không được để trống hoặc chỉ chứa khoảng trắng"
                 ));
             }
+
 
             // Lấy nhân viên từ session
             NhanVien nhanVienSession = (NhanVien) session.getAttribute("userNhanVien");

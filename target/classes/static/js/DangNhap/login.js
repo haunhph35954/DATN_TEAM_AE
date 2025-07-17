@@ -145,7 +145,42 @@ document.addEventListener("DOMContentLoaded", function () {
                 Swal.fire("Lỗi", error.message || "Lỗi đăng ký. Vui lòng thử lại.", "error");
             }
         });
-
+    // // quên mật khẩu
+    // $(document).ready(function () {
+    //     // Khi click vào "Quên mật khẩu?"
+    //     $('.forgot-link a').click(function (e) {
+    //         e.preventDefault();
+    //         $('.form-box.login').hide();
+    //         $('.form-box.forgot-password').show();
+    //     });
+    //
+    //     // Quay lại đăng nhập
+    //     $('.back-to-login').click(function () {
+    //         $('.form-box.forgot-password').hide();
+    //         $('.form-box.login').show();
+    //     });
+    //
+    //     // Gửi form quên mật khẩu
+    //     $('#forgotPasswordForm').submit(function (e) {
+    //         e.preventDefault();
+    //         const email = $('#forgot-email').val();
+    //
+    //         // Gửi yêu cầu đến server
+    //         $.ajax({
+    //             url: '/api/forgot-password',
+    //             type: 'POST',
+    //             contentType: 'application/json',
+    //             data: JSON.stringify({ email: email }),
+    //             success: function (response) {
+    //                 Swal.fire('Thành công', 'Vui lòng kiểm tra email để đặt lại mật khẩu.', 'success');
+    //                 $('#forgot-email').val('');
+    //             },
+    //             error: function () {
+    //                 Swal.fire('Thất bại', 'Email không tồn tại hoặc có lỗi xảy ra.', 'error');
+    //             }
+    //         });
+    //     });
+    // });
     // Xử lý đăng xuất
     document.getElementById("logoutBtn")?.addEventListener("click", async function() {
         try {

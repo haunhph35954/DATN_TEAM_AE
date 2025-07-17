@@ -35,12 +35,13 @@ public class MauSacApiController {
                 ));
             }
 
-            if (mauSacRequest.getTenMauSac().isEmpty()) {
+            if (mauSacRequest.getTenMauSac() == null || mauSacRequest.getTenMauSac().trim().isEmpty()) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
                         "success", false,
-                        "message", "Tên màu sắc không được để trống"
+                        "message", "Tên màu sắc không được để trống hoặc chỉ chứa khoảng trắng"
                 ));
             }
+
 
             // Lấy thông tin nhân viên từ session
             NhanVien nhanVienSession = (NhanVien) session.getAttribute("userNhanVien");

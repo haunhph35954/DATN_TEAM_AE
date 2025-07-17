@@ -34,12 +34,13 @@ public class DanhMucApiController {
                 ));
             }
 
-            if (danhMucRequest.getTenDanhMuc().isEmpty()) {
+            if (danhMucRequest.getTenDanhMuc() == null || danhMucRequest.getTenDanhMuc().trim().isEmpty()) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
                         "success", false,
-                        "message", "Tên danh mục không được để trống"
+                        "message", "Tên danh mục không được để trống hoặc chỉ chứa khoảng trắng"
                 ));
             }
+
             // Lấy thông tin nhân viên từ session
             NhanVien nhanVienSession = (NhanVien) session.getAttribute("userNhanVien");
             if (nhanVienSession == null) {

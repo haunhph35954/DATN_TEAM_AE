@@ -90,17 +90,6 @@ public class SanPhamService {
                         .body(Map.of("message", "Chất liệu không được để trống!"));
             }
 
-            // Check trùng tên sản phẩm (bỏ khoảng trắng thừa nếu có)
-            Optional<SanPham> existingSanPhamOpt = sanPhamRepository.findByTenSanPham(
-                    sanPhamDTO.getTenSanPham().trim()
-            );
-
-            if (existingSanPhamOpt.isPresent()) {
-                return ResponseEntity
-                        .status(HttpStatus.CONFLICT) // 409 Conflict
-                        .body(Map.of("message", "Tên sản phẩm đã tồn tại!"));
-            }
-
             // Lấy nhân viên từ session
             NhanVien nhanVienSession = (NhanVien) session.getAttribute("userNhanVien");
             if (nhanVienSession == null) {
@@ -129,6 +118,13 @@ public class SanPhamService {
                     () -> new RuntimeException("Chất liệu không tồn tại!")));
             sanPham.setXuatXu(xuatXuRepository.findById(sanPhamDTO.getXuatXuId()).orElseThrow(
                     () -> new RuntimeException("Xuất xứ không tồn tại!")));
+
+            if ( sanPhamRepository.existsByTenSanPhamAndThuongHieu_IdAndXuatXu_IdAndDanhMuc_IdAndChatLieu_Id(
+                    sanPhamDTO.getTenSanPham(), sanPhamDTO.getThuongHieuId(), sanPhamDTO.getXuatXuId(), sanPhamDTO.getDanhMucId(), sanPhamDTO.getChatLieuId())) {
+                return ResponseEntity
+                        .status(HttpStatus.CONFLICT) // 409 Conflict
+                        .body(Map.of("message", "Tên sản phẩm đã tồn tại!"));
+            }
 
             // Lưu vào DB
             SanPham savedSanPham = sanPhamRepository.save(sanPham);
@@ -159,14 +155,6 @@ public class SanPhamService {
             SanPham sanPham = sanPhamRepository.findById(id)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sản phẩm không tồn tại!"));
 
-            // Kiểm tra trùng lặp sản phẩm
-            Optional<SanPham> existingSanPhamOpt = sanPhamRepository.findByTenSanPham(
-                    sanPhamDTO.getTenSanPham()
-            );
-
-            if (existingSanPhamOpt.isPresent() && !existingSanPhamOpt.get().getId().equals(id)) {
-                throw new ResponseStatusException(HttpStatus.CONFLICT, "Sản phẩm đã tồn tại trong danh mục và thương hiệu này!");
-            }
 
             // Cập nhật thông tin sản phẩm
             sanPham.setTenSanPham(sanPhamDTO.getTenSanPham());
@@ -189,6 +177,17 @@ public class SanPhamService {
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Chất liệu không hợp lệ!")));
             sanPham.setXuatXu(xuatXuRepository.findById(sanPhamDTO.getXuatXuId())
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Xuất xứ không hợp lệ!")));
+
+            if (sanPhamRepository.existsByTenSanPhamAndThuongHieu_IdAndXuatXu_IdAndDanhMuc_IdAndChatLieu_IdAndIdNot(
+                    sanPhamDTO.getTenSanPham(),
+                    sanPhamDTO.getThuongHieuId(),
+                    sanPhamDTO.getXuatXuId(),
+                    sanPhamDTO.getDanhMucId(),
+                    sanPhamDTO.getChatLieuId(),
+                    id)) {
+
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "Sản phẩm đã tồn tại trong danh mục và thương hiệu này!");
+            }
 
             return sanPhamRepository.save(sanPham);
 

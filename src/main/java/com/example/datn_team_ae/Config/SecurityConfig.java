@@ -1,6 +1,5 @@
 package com.example.datn_team_ae.Config;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -40,7 +39,6 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/auth/home")
                         .permitAll()
                 );
-
         return http.build();
     }
 }

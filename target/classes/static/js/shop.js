@@ -241,45 +241,74 @@ $(document).ready(function () {
     // Lấy tổng tiền hóa đơn từ Thymeleaf
     let tongTienHoaDon = parseFloat('[[${hoaDon != null ? hoaDon.tongTien : 0}]]');
 
+
+
+
     // Xử lý khi chọn phương thức thanh toán
     paymentOptions.on("change", function () {
         let selectedText = $("label[for='" + this.id + "']").text().trim();
         paymentDetails.empty();
 
         if (selectedText === "Tiền Mặt") {
+            // ✅ Nhập tay cả 2 ô: khách đưa + tiền thối
             paymentDetails.html(`
-                <div class="mb-3">
-                    <label for="cashAmount" class="form-label"><i class="fas fa-money-bill-wave"></i> Nhập số tiền khách đưa:</label>
-                    <input type="number" id="cashAmount" name="cashAmount" class="form-control" placeholder="Nhập số tiền khách đưa" min="0">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label"><i class="fas fa-coins"></i> Số tiền thối lại:</label>
-                    <input type="text" id="changeAmount" class="form-control" readonly>
-                </div>
-            `);
+<!--            <div class="mb-3">-->
+<!--    <label for="cashAmount" class="form-label">-->
+<!--        <i class="fas fa-money-bill-wave"></i> Nhập số tiền khách đưa:-->
+<!--    </label>-->
+<!--    <div class="input-group">-->
+<!--        <input type="number" id="cashAmount" name="cashAmount"-->
+<!--               class="form-control" placeholder="Ví dụ: 200000" min="0" required>-->
+<!--        <span class="input-group-text">VND</span>-->
+<!--    </div>-->
+<!--</div>-->
 
-            let cashInput = $("#cashAmount");
-            let changeOutput = $("#changeAmount");
+<!--<div class="mb-3">-->
+<!--    <label for="changeAmount" class="form-label">-->
+<!--        <i class="fas fa-coins"></i> Nhập số tiền thối lại:-->
+<!--    </label>-->
+<!--    <div class="input-group">-->
+<!--        <input type="number" id="changeAmount" name="changeAmount"-->
+<!--               class="form-control" placeholder="Ví dụ: 50000" min="0" required>-->
+<!--        <span class="input-group-text">VND</span>-->
+<!--    </div>-->
+<!--</div>-->
 
-            cashInput.on("input", function () {
-                let cashGiven = parseFloat($(this).val()) || 0;
-                let phiShip = parseFloat($("#phiShip").val()) || 0;
-                let maGiamGia = parseFloat($("#listPhieuGiamGia").val()) || 0;
-                let totalAmount = tongTienHoaDon + phiShip - maGiamGia;
-
-                let change = cashGiven - totalAmount;
-                changeOutput.val(change < 0 ? `Thiếu ${Math.abs(change).toLocaleString()} VND` : `${change.toLocaleString()} VND`)
-                    .css("color", change < 0 ? "red" : "green");
-            });
-
+        `);
         } else if (selectedText === "Chuyển Khoản") {
             paymentDetails.html(`
-                <div class="mb-3 text-center">
-                    <img id="qrCodeImage" src="" alt="QR Code" class="img-fluid" style="max-width: 250px;">
-                </div>
-            `);
+        <div class="mb-3 text-center">
+            <img id="qrCodeImage" src="/img/qz-code.jpg" alt="QR Code" class="img-fluid" style="max-width: 250px;">
+        </div>
+    `);
         }
     });
+
+    // // Xử lý khi chọn phương thức thanh toán
+    // paymentOptions.on("change", function () {
+    //     let selectedText = $("label[for='" + this.id + "']").text().trim();
+    //     paymentDetails.empty();
+    //
+    //     if (selectedText === "Tiền Mặt") {
+    //         paymentDetails.html(`
+    //             <div class="mb-3">
+    //                 <label for="cashAmount" class="form-label"><i class="fas fa-money-bill-wave"></i> Nhập số tiền khách đưa:</label>
+    //                 <input type="number" id="cashAmount" name="cashAmount" class="form-control" placeholder="Nhập số tiền khách đưa" min="0">
+    //             </div>
+    //             <div class="mb-3">
+    //                 <label class="form-label"><i class="fas fa-coins"></i> Số tiền thối lại:</label>
+    //                 <input type="text" id="changeAmount" class="form-control" readonly>
+    //             </div>
+    //         `);
+    //
+    //     }   else if (selectedText === "Chuyển Khoản") {
+    //         paymentDetails.html(`
+    //             <div class="mb-3 text-center">
+    //                 <img id="qrCodeImage" src="" alt="QR Code" class="img-fluid" style="max-width: 250px;">
+    //             </div>
+    //         `);
+    //     }
+    // });
 
     // Xử lý khi nhấn nút "Cập nhật" để chọn phương thức thanh toán
     $("#addPaymentMethodButton").on("click", function () {

@@ -12,14 +12,27 @@
     <div th:replace="admin/fragments/sidebar :: sidebar"></div>
 
     <!-- =============================================== -->
+    <!--    tiêu đề chữ-->
+    <style>
+        .content-header {
+            background: linear-gradient(to right, #3a3f51, #2c2f3e);
+            padding: 20px;
+            border-radius: 12px 12px 0 0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
 
+        .content-header h2 {
+            color: white;
+            font-weight: 700;
+            margin: 0;
+        }
+    </style>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>
-                Sản Phẩm
-            </h1>
+            <h2>📦 Sản phẩm</h2>
         </section>
 
         <!-- Main content -->
@@ -104,6 +117,117 @@
 
 <div th:replace="admin/fragments/script :: script"></div>
 
+<!--<script>-->
+<!--    document.addEventListener("DOMContentLoaded", function () {-->
+<!--        let table = $("#productTable").DataTable({-->
+<!--            "paging": true,-->
+<!--            "lengthMenu": [5, 10, 20],-->
+<!--            "pageLength": 5,-->
+<!--            "autoWidth": false,-->
+<!--            "responsive": true,-->
+<!--            "destroy": true,-->
+<!--            "language": {-->
+<!--                "sProcessing": "Đang xử lý...",-->
+<!--                "sLengthMenu": "Hiển thị _MENU_ dòng",-->
+<!--                "sZeroRecords": "Không tìm thấy dữ liệu",-->
+<!--                "sInfo": "Hiển thị _START_ đến _END_ trong tổng _TOTAL_ dòng",-->
+<!--                "sInfoEmpty": "Không có dữ liệu để hiển thị",-->
+<!--                "sInfoFiltered": "(lọc từ _MAX_ dòng)",-->
+<!--                "sSearch": "Tìm kiếm:",-->
+<!--                "oPaginate": {-->
+<!--                    "sFirst": "Đầu",-->
+<!--                    "sPrevious": "Trước",-->
+<!--                    "sNext": "Tiếp",-->
+<!--                    "sLast": "Cuối"-->
+<!--                }-->
+<!--            }-->
+<!--        });-->
+
+<!--        loadSanPham(""); // Load tất cả sản phẩm ban đầu-->
+<!--        loadCount();-->
+
+<!--        document.querySelectorAll(".filter-btn").forEach(button => {-->
+<!--            button.addEventListener("click", function () {-->
+<!--                let trangThai = this.getAttribute("data-status");-->
+<!--                loadSanPham(trangThai);-->
+<!--            });-->
+<!--        });-->
+
+<!--        function loadSanPham(trangThai) {-->
+<!--            fetch(`/api/san-pham/list?trangThai=${encodeURIComponent(trangThai)}`)-->
+<!--                .then(response => response.json())-->
+<!--                .then(data => {-->
+<!--                    table.clear().draw();-->
+
+<!--                    data.forEach((sanPham, index) => {-->
+<!--                        table.row.add([-->
+<!--                            index + 1,-->
+<!--                            sanPham.maSanPham,-->
+<!--                            sanPham.tenSanPham,-->
+<!--                            `<span class="fw-bold text-danger">${sanPham.soLuong != null ? sanPham.soLuong : 0}</span>`,-->
+<!--                            `<button class="badge ${sanPham.trangThai === 'Đang Hoạt Động' ? 'bg-success' : 'bg-danger'} btn-status"-->
+<!--                     data-id="${sanPham.id}">-->
+<!--                    ${sanPham.trangThai}-->
+<!--                </button>`,-->
+<!--                            `<a href="/admin/detail-san-pham?sanPhamId=${sanPham.id}" class="btn btn-primary btn-sm fw-bold me-2">-->
+<!--                    <i class="bi bi-eye"></i> Chi Tiết-->
+<!--                </a>`-->
+<!--                        ]).draw(false);-->
+<!--                    });-->
+
+<!--                    document.querySelectorAll(".btn-status").forEach(button => {-->
+<!--                        button.addEventListener("click", function () {-->
+<!--                            const sanPhamId = this.getAttribute("data-id");-->
+
+<!--                            Swal.fire({-->
+<!--                                title: "Xác nhận thay đổi trạng thái?",-->
+<!--                                text: "Bạn có chắc muốn cập nhật trạng thái sản phẩm này?",-->
+<!--                                icon: "warning",-->
+<!--                                showCancelButton: true,-->
+<!--                                confirmButtonColor: "#3085d6",-->
+<!--                                cancelButtonColor: "#d33",-->
+<!--                                confirmButtonText: "Có, cập nhật!",-->
+<!--                                cancelButtonText: "Hủy"-->
+<!--                            }).then((result) => {-->
+<!--                                if (result.isConfirmed) {-->
+<!--                                    fetch(`/api/san-pham/toggle-status/${sanPhamId}`, { method: "PUT" })-->
+<!--                                        .then(response => response.json()-->
+<!--                                            .then(data => ({-->
+<!--                                                status: response.status,-->
+<!--                                                message: data.error || data.message || "Có lỗi xảy ra!"-->
+<!--                                            })))-->
+<!--                                        .then(({ status, message }) => {-->
+<!--                                            if (status === 200) {-->
+<!--                                                Swal.fire("Thành công!", "Trạng thái sản phẩm đã được cập nhật.", "success");-->
+<!--                                                loadSanPham(trangThai);-->
+<!--                                                loadCount();-->
+<!--                                            } else {-->
+<!--                                                Swal.fire("Lỗi!", message, "error");-->
+<!--                                            }-->
+<!--                                        })-->
+<!--                                        .catch(error => {-->
+<!--                                            Swal.fire("Lỗi hệ thống!", error.message, "error");-->
+<!--                                        });-->
+<!--                                }-->
+<!--                            });-->
+<!--                        });-->
+<!--                    });-->
+<!--                })-->
+<!--                .catch(error => console.error("Lỗi:", error));-->
+<!--        }-->
+
+<!--        function loadCount() {-->
+<!--            fetch("/api/san-pham/count")-->
+<!--                .then(response => response.json())-->
+<!--                .then(counts => {-->
+<!--                    document.getElementById("count-all").innerText = counts["Tất Cả"];-->
+<!--                    document.getElementById("count-active").innerText = counts["Đang Hoạt Động"];-->
+<!--                    document.getElementById("count-inactive").innerText = counts["Ngừng Hoạt Động"];-->
+<!--                })-->
+<!--                .catch(error => console.error("Lỗi:", error));-->
+<!--        }-->
+<!--    });-->
+<!--</script>-->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         let table = $("#productTable").DataTable({
@@ -130,21 +254,65 @@
             }
         });
 
-        loadSanPham(""); // Load tất cả sản phẩm ban đầu
+        // Biến lưu trạng thái đang được lọc
+        let currentTrangThai = "";
+
+        loadSanPham(currentTrangThai); // Load tất cả ban đầu
         loadCount();
 
+        // Xử lý lọc theo trạng thái
         document.querySelectorAll(".filter-btn").forEach(button => {
             button.addEventListener("click", function () {
-                let trangThai = this.getAttribute("data-status");
-                loadSanPham(trangThai);
+                currentTrangThai = this.getAttribute("data-status");
+                loadSanPham(currentTrangThai);
             });
         });
 
+        // Gán sự kiện click trạng thái bằng event delegation (hoạt động với phân trang)
+        document.querySelector("#productTable tbody").addEventListener("click", function (event) {
+            if (event.target.classList.contains("btn-status")) {
+                const sanPhamId = event.target.getAttribute("data-id");
+
+                Swal.fire({
+                    title: "Xác nhận thay đổi trạng thái?",
+                    text: "Bạn có chắc muốn cập nhật trạng thái sản phẩm này?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Có, cập nhật!",
+                    cancelButtonText: "Hủy"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch(`/api/san-pham/toggle-status/${sanPhamId}`, { method: "PUT" })
+                            .then(response => response.json()
+                                .then(data => ({
+                                    status: response.status,
+                                    message: data.error || data.message || "Có lỗi xảy ra!"
+                                })))
+                            .then(({ status, message }) => {
+                                if (status === 200) {
+                                    Swal.fire("Thành công!", "Trạng thái sản phẩm đã được cập nhật.", "success");
+                                    loadSanPham(currentTrangThai);
+                                    loadCount();
+                                } else {
+                                    Swal.fire("Lỗi!", message, "error");
+                                }
+                            })
+                            .catch(error => {
+                                Swal.fire("Lỗi hệ thống!", error.message, "error");
+                            });
+                    }
+                });
+            }
+        });
+
+        // Hàm load sản phẩm từ API
         function loadSanPham(trangThai) {
             fetch(`/api/san-pham/list?trangThai=${encodeURIComponent(trangThai)}`)
                 .then(response => response.json())
                 .then(data => {
-                    table.clear().draw();
+                    table.clear();
 
                     data.forEach((sanPham, index) => {
                         table.row.add([
@@ -153,56 +321,21 @@
                             sanPham.tenSanPham,
                             `<span class="fw-bold text-danger">${sanPham.soLuong != null ? sanPham.soLuong : 0}</span>`,
                             `<button class="badge ${sanPham.trangThai === 'Đang Hoạt Động' ? 'bg-success' : 'bg-danger'} btn-status"
-                     data-id="${sanPham.id}">
-                    ${sanPham.trangThai}
-                </button>`,
+                                     data-id="${sanPham.id}">
+                                 ${sanPham.trangThai}
+                             </button>`,
                             `<a href="/admin/detail-san-pham?sanPhamId=${sanPham.id}" class="btn btn-primary btn-sm fw-bold me-2">
-                    <i class="bi bi-eye"></i> Chi Tiết
-                </a>`
-                        ]).draw(false);
+                                <i class="bi bi-eye"></i> Chi Tiết
+                            </a>`
+                        ]);
                     });
 
-                    document.querySelectorAll(".btn-status").forEach(button => {
-                        button.addEventListener("click", function () {
-                            const sanPhamId = this.getAttribute("data-id");
-
-                            Swal.fire({
-                                title: "Xác nhận thay đổi trạng thái?",
-                                text: "Bạn có chắc muốn cập nhật trạng thái sản phẩm này?",
-                                icon: "warning",
-                                showCancelButton: true,
-                                confirmButtonColor: "#3085d6",
-                                cancelButtonColor: "#d33",
-                                confirmButtonText: "Có, cập nhật!",
-                                cancelButtonText: "Hủy"
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    fetch(`/api/san-pham/toggle-status/${sanPhamId}`, { method: "PUT" })
-                                        .then(response => response.json()
-                                            .then(data => ({
-                                                status: response.status,
-                                                message: data.error || data.message || "Có lỗi xảy ra!"
-                                            })))
-                                        .then(({ status, message }) => {
-                                            if (status === 200) {
-                                                Swal.fire("Thành công!", "Trạng thái sản phẩm đã được cập nhật.", "success");
-                                                loadSanPham(trangThai);
-                                                loadCount();
-                                            } else {
-                                                Swal.fire("Lỗi!", message, "error");
-                                            }
-                                        })
-                                        .catch(error => {
-                                            Swal.fire("Lỗi hệ thống!", error.message, "error");
-                                        });
-                                }
-                            });
-                        });
-                    });
+                    table.draw(false); // Giữ nguyên trang hiện tại
                 })
                 .catch(error => console.error("Lỗi:", error));
         }
 
+        // Hàm load đếm số lượng trạng thái
         function loadCount() {
             fetch("/api/san-pham/count")
                 .then(response => response.json())
@@ -215,6 +348,7 @@
         }
     });
 </script>
+
 <script src="/js/main.js"></script>
 <script src="/js/DangNhap/login.js"></script>
 <script src="/js/DangNhap/logout.js"></script>

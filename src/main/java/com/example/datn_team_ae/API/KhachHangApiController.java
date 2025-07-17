@@ -7,7 +7,6 @@ import com.example.datn_team_ae.Entity.KhachHang;
 import com.example.datn_team_ae.Service.DiaChiService;
 import com.example.datn_team_ae.Service.KhachHangService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -79,7 +78,6 @@ public class KhachHangApiController {
             return ResponseEntity.badRequest().body("Không thể cập nhật trạng thái");
         }
     }
-
     @PostMapping("/add")
     public ResponseEntity<?> addKhachHang(
             @RequestParam("hoTen") String hoTen,
@@ -164,7 +162,6 @@ public class KhachHangApiController {
                     ));
         }
     }
-
 
     @GetMapping("/check-password")
     public ResponseEntity<Boolean> checkPassword(
