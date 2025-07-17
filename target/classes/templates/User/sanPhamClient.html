@@ -245,14 +245,14 @@
 <div class="container-fluid mb-5">
     <div class="row border-top px-xl-5">
         <div class="col-lg-3 d-none d-lg-block">
-            <a class="btn d-flex align-items-center justify-content-between bg-primary text-white w-100 shadow-none"
+            <a class="btn d-flex align-items-center justify-content-between bg-primary text-white w-100 shadow-none category-toggle-btn"
                data-toggle="collapse"
                data-target="#navbar-vertical"
                role="button"
                aria-expanded="false"
                aria-controls="navbar-vertical"
                style="height: 65px; margin-top: -1px; padding: 0 30px;">
-                <h6 class="m-0" style="font-size: 22px">Thể loại</h6>
+                <h6 class="m-0 category-title">DANH MỤC SẢN PHẨM</h6>
                 <i class="fa fa-angle-down text-white"></i>
             </a>
 
@@ -264,18 +264,39 @@
                     <!-- Danh mục sẽ thêm bằng JS -->
                 </div>
             </div>
-            <!--            <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; margin-top: -1px; padding: 0 30px;">-->
-            <!--                <h6 class="m-0">Thể loại</h6>-->
-            <!--                <i class="fa fa-angle-down text-dark"></i>-->
-            <!--            </a>-->
-            <!--            <nav class="position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light show"-->
-            <!--                 id="navbar-vertical"-->
-            <!--                 style="width: calc(100% - 30px); z-index: 1; display: block;">-->
-            <!--                <div class="navbar-nav w-100 overflow-hidden" style="height: 410px" id="danh-muc-list">-->
-            <!--                    &lt;!&ndash; Danh mục sẽ được thêm vào đây bằng JavaScript &ndash;&gt;-->
-            <!--                </div>-->
-            <!--            </nav>-->
+
         </div>
+        <!--        danh mục sản phẩm -->
+        <style>
+            .category-title {
+                font-size: 15px;
+                font-weight: 700;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                color: #ffffff;
+                font-family: 'Poppins', sans-serif;
+            }
+
+            .category-toggle-btn {
+                border-radius: 10px 10px 0 0; /* Bo góc trên */
+            }
+
+            #navbar-vertical {
+                border-radius: 0 0 10px 10px; /* Bo góc dưới */
+                overflow: hidden;
+            }
+            .category-toggle-btn {
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+            .category-toggle-btn:hover {
+                background-color: #d04d78; /* Hồng đậm hơn chút */
+                transition: background-color 0.3s ease;
+            }
+            .category-title {
+                letter-spacing: 1.2px;
+            }
+
+        </style>
         <div class="col-lg-9">
             <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
                 <a href="" class="text-decoration-none d-block d-lg-none">
@@ -290,93 +311,9 @@
                         <a href="san-pham" class="nav-item nav-link">Sản phẩm</a>
                         <a href="gio-hang" class="nav-item nav-link">Giỏ hàng</a>
                         <a href="thanh-toan" class="nav-item nav-link">Thanh toán</a>
+                        <a href="lien-he" class="nav-item nav-link">Liên hệ</a>
                     </div>
 
-<!-- Topbar Start -->
-<!--<div class="container-fluid">-->
-<!--    <div class="row align-items-center py-3 px-xl-5">-->
-<!--        &lt;!&ndash; Logo &ndash;&gt;-->
-<!--        <div class="col-lg-3 d-none d-lg-block">-->
-<!--            <a href="/trang-chu" class="text-decoration-none">-->
-<!--                <h1 class="m-0 display-5 font-weight-semi-bold">-->
-<!--                    <span class="text-primary font-weight-bold border px-3 mr-1">E</span>MinLiNa-->
-<!--                </h1>-->
-<!--            </a>-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; Ô tìm kiếm (Tăng rộng) &ndash;&gt;-->
-<!--        <div class="col-lg-5 col-6 text-left">-->
-<!--            <form id="searchForm">-->
-<!--                <div class="input-group">-->
-<!--                    <input type="text" class="form-control" id="searchInput" placeholder="Tìm kiếm sản phẩm">-->
-<!--                    <div class="input-group-append">-->
-<!--            <span class="input-group-text bg-transparent text-primary" id="searchButton">-->
-<!--                <i class="fa fa-search"></i>-->
-<!--            </span>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </form>-->
-<!--            <div id="searchResults"></div>-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; Ô nhập mã hóa đơn (Giữ vừa) &ndash;&gt;-->
-<!--        <div class="col-lg-2 col-6 text-center">-->
-<!--            <div class="input-group shadow-sm">-->
-<!--                <form action="/don-hang" method="GET" class="input-group shadow-sm">-->
-<!--                    <input type="text" class="form-control border-primary rounded-start px-2"-->
-<!--                           name="maHoaDon" id="maHoaDonInput" placeholder="Nhập mã hóa đơn"-->
-<!--                           style="border-right: none; box-shadow: none;" required>-->
-<!--                    <button type="submit" class="btn btn-primary rounded-end px-3">Tra cứu</button>-->
-<!--                </form>-->
-<!--            </div>-->
-<!--        </div>-->
-
-
-<!--        &lt;!&ndash; Nút giỏ hàng (Hợp lý) &ndash;&gt;-->
-<!--        <div class="col-lg-2 col-6 text-right">-->
-<!--            <a href="gio-hang" class="btn border">-->
-<!--                <i class="fas fa-shopping-cart text-primary"></i>-->
-<!--                <span class="badge">0</span>-->
-<!--            </a>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!--&lt;!&ndash; Topbar End &ndash;&gt;-->
-
-
-<!--&lt;!&ndash; Navbar Start &ndash;&gt;-->
-<!--<div class="container-fluid">-->
-<!--    <div class="row border-top px-xl-5">-->
-<!--        <div class="col-lg-3 d-none d-lg-block">-->
-<!--            <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; margin-top: -1px; padding: 0 30px;">-->
-<!--                <h6 class="m-0">Thể loại</h6>-->
-<!--                <i class="fa fa-angle-down text-dark"></i>-->
-<!--            </a>-->
-<!--            <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light"-->
-<!--                 id="navbar-vertical"-->
-<!--                 style="width: calc(100% - 30px); z-index: 1;">-->
-<!--                <div class="navbar-nav w-100 overflow-hidden" style="height: 410px" id="danh-muc-list">-->
-<!--                    &lt;!&ndash; Danh mục sẽ được thêm vào đây bằng JavaScript &ndash;&gt;-->
-<!--                </div>-->
-<!--            </nav>-->
-
-<!--        </div>-->
-<!--        <div class="col-lg-9">-->
-<!--            <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">-->
-<!--                <a href="" class="text-decoration-none d-block d-lg-none">-->
-<!--                    <h1 class="m-0 display-5 font-weight-semi-bold"><span-->
-<!--                            class="text-primary font-weight-bold border px-3 mr-1">E</span>Shopper</h1>-->
-<!--                </a>-->
-<!--                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">-->
-<!--                    <span class="navbar-toggler-icon"></span>-->
-<!--                </button>-->
-<!--                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">-->
-<!--                    <div class="navbar-nav mr-auto py-0">-->
-<!--                        <a href="trang-chu" class="nav-item nav-link active">Trang chủ</a>-->
-<!--                        <a href="san-pham" class="nav-item nav-link">Sản phẩm</a>-->
-<!--                        <a href="gio-hang" class="nav-item nav-link">Giỏ hàng</a>-->
-<!--                        <a href="thanh-toan" class="nav-item nav-link">Thanh toán</a>-->
-<!--                    </div>-->
                     <div class="navbar-nav ml-auto py-0">
                         <!-- Nếu chưa đăng nhập -->
                         <div th:if="${session.userKhachHang == null}" class="nav-item">
@@ -722,7 +659,7 @@
                                 <a class="text-dark mb-2" th:href="@{/san-pham}"><i class="fa fa-angle-right mr-2"></i>Sản phẩm</a>
                                 <a class="text-dark mb-2" th:href="@{/gio-hang}"><i class="fa fa-angle-right mr-2"></i>Giỏ hàng</a>
                                 <a class="text-dark mb-2" th:href="@{/thanh-toan}"><i class="fa fa-angle-right mr-2"></i>Thanh toán</a>
-                                <a class="text-dark" href="auth.html"><i class="fa fa-angle-right mr-2"></i>  Liên hệ</a>
+                                <a class="text-dark mb-2" th:href="@{/lien-he}"><i class="fa fa-angle-right mr-2"></i>Liên hệ</a>
                             </div>
                         </div>
                     </div>
@@ -757,6 +694,424 @@
         </div>
     </div>
 </div>
+
+
+<!-- CHATBOT UI -->
+<div id="chatbot-button">
+    <button onclick="toggleChatbot()">
+        💬 Hỏi Shop
+    </button>
+</div>
+
+<div id="chatbot-popup">
+    <div class="header">
+        <span>🧠 MinLiNa Chatbot</span>
+        <button onclick="toggleChatbot()">✖</button>
+    </div>
+    <div id="chatbox">
+        <div class="message bot">Chào Bạn, tôi có thể giúp gì cho bạn hôm nay?</div>
+    </div>
+    <div class="input-area">
+        <input type="text" id="userInput" placeholder="Nhập câu hỏi..." onkeydown="handleKeyDown(event)">
+        <button onclick="sendMessage()">Gửi</button>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script> <script>
+    // Hàm để xử lý phím Enter
+    function handleKeyDown(event) {
+        if (event.key === 'Enter') {
+            sendMessage();
+        }
+    }
+
+    // Hàm hiển thị hoặc ẩn popup chatbot
+    function toggleChatbot() {
+        const popup = document.getElementById("chatbot-popup");
+        if (popup.style.display === "none" || popup.style.display === "") {
+            popup.style.display = "flex";
+            document.getElementById("userInput").focus(); // Tự động focus vào input
+        } else {
+            popup.style.display = "none";
+        }
+    }
+
+    // Hàm gửi tin nhắn
+    async function sendMessage() {
+        const input = document.getElementById("userInput");
+        const chatbox = document.getElementById("chatbox");
+        const message = input.value.trim();
+        if (message === "") return;
+
+        // Thêm tin nhắn của người dùng
+        chatbox.innerHTML += `<div class="message user"><b>Bạn:</b> ${message}</div>`;
+        input.value = ""; // Xóa nội dung input
+        chatbox.scrollTop = chatbox.scrollHeight; // Cuộn xuống cuối
+
+        // Hiển thị trạng thái loading của bot
+        const loadingMessageDiv = document.createElement('div');
+        loadingMessageDiv.className = 'message bot';
+        loadingMessageDiv.innerHTML = `<b>MinLiNa:</b> Đang gõ <span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span>`;
+        chatbox.appendChild(loadingMessageDiv);
+        chatbox.scrollTop = chatbox.scrollHeight;
+
+        try {
+            const res = await fetch("/api/chatbot/hoi", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(message)
+            });
+
+            // Xóa trạng thái loading
+            chatbox.removeChild(loadingMessageDiv);
+
+            if (!res.ok) { // Kiểm tra nếu phản hồi không thành công (ví dụ: status 500)
+                const errorText = await res.text();
+                console.error("Lỗi từ server:", res.status, errorText);
+                chatbox.innerHTML += `<div class="message bot" style="color:red;"><b>MinLiNa:</b> Xin lỗi, chatbot gặp lỗi. Vui lòng thử lại sau.</div>`;
+            } else {
+                const data = await res.text();
+                // Sử dụng marked.js để render Markdown thành HTML
+                const renderedHtml = marked.parse(data);
+                chatbox.innerHTML += `<div class="message bot"><b>MinLiNa:</b> ${renderedHtml}</div>`;
+            }
+        } catch (error) {
+            // Xóa trạng thái loading nếu có lỗi mạng
+            if (chatbox.contains(loadingMessageDiv)) {
+                chatbox.removeChild(loadingMessageDiv);
+            }
+            console.error("Lỗi khi gửi tin nhắn:", error);
+            chatbox.innerHTML += `<div class="message bot" style="color:red;"><b>MinLiNa:</b> Không thể kết nối đến chatbot. Vui lòng kiểm tra kết nối mạng hoặc thử lại.</div>`;
+        } finally {
+            chatbox.scrollTop = chatbox.scrollHeight; // Đảm bảo luôn cuộn xuống cuối
+        }
+    }
+</script>
+
+
+<style>
+    .service-box {
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .service-box:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .service-box .icon i {
+        color: white;
+    }
+
+    .service-box small {
+        font-size: 13px;
+        display: block;
+    }
+</style>
+<!--fooot ter-->
+
+<style>
+    :root {
+        --primary-color: #FF80AB; /* Màu hồng chủ đạo */
+        --primary-dark-color: #e06090; /* Màu hồng đậm hơn cho hover */
+        --border-color: #ddd;
+        --shadow-color: rgba(0, 0, 0, 0.15);
+    }
+    #chatbot-button {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        z-index: 999;
+    }
+
+    #chatbot-button button {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 15px 25px; /* Tăng kích thước nút */
+        border: none;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 8px var(--shadow-color); /* Thêm đổ bóng */
+        transition: background-color 0.3s ease, transform 0.2s ease; /* Hiệu ứng chuyển động */
+    }
+
+    #chatbot-button button:hover {
+        background-color: var(--primary-dark-color);
+        transform: translateY(-2px); /* Nâng nút lên một chút khi hover */
+    }
+
+    /* Popup chatbot */
+    #chatbot-popup {
+        position: fixed;
+        bottom: 90px; /* Nâng cao hơn nút một chút */
+        left: 20px;
+        width: 380px; /* Tăng chiều rộng một chút */
+        height: 550px; /* Tăng chiều cao một chút */
+        background: white;
+        border-radius: 15px;
+        border: 1px solid var(--border-color);
+        display: none;
+        flex-direction: column;
+        z-index: 1000;
+        box-shadow: 0 8px 20px var(--shadow-color); /* Đổ bóng mạnh hơn */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Font hiện đại hơn */
+        overflow: hidden; /* Đảm bảo nội dung không tràn ra ngoài góc bo tròn */
+    }
+
+    /* Header chatbot */
+    #chatbot-popup .header {
+        background-color: var(--primary-color);
+        padding: 15px; /* Tăng padding */
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        border-top-left-radius: 15px; /* Bo góc header */
+        border-top-right-radius: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #chatbot-popup .header button {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px; /* Tăng kích thước nút đóng */
+        cursor: pointer;
+        transition: transform 0.2s ease;
+    }
+
+    #chatbot-popup .header button:hover {
+        transform: rotate(90deg); /* Hiệu ứng xoay khi đóng */
+    }
+
+    /* Chatbox hiển thị tin nhắn */
+    #chatbox {
+        flex: 1;
+        padding: 15px;
+        overflow-y: auto;
+        font-size: 15px;
+        line-height: 1.6;
+        background-color: #f9f9f9; /* Màu nền nhẹ nhàng */
+        display: flex; /* Dùng flexbox để tin nhắn tự xuống dòng */
+        flex-direction: column;
+        gap: 10px; /* Khoảng cách giữa các tin nhắn */
+    }
+
+    /* Thanh cuộn tùy chỉnh */
+    #chatbox::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    #chatbox::-webkit-scrollbar-thumb {
+        background-color: #ccc;
+        border-radius: 4px;
+    }
+
+    #chatbox::-webkit-scrollbar-track {
+        background-color: #f1f1f1;
+    }
+
+    /* Phong cách cho tin nhắn của bạn */
+    .message.user {
+        align-self: flex-end; /* Tin nhắn của bạn căn phải */
+        background-color: #e0f7fa; /* Màu nền xanh nhạt */
+        color: #333;
+        border-radius: 12px 12px 2px 12px; /* Bo góc tin nhắn */
+        padding: 8px 12px;
+        max-width: 80%; /* Giới hạn chiều rộng tin nhắn */
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    /* Phong cách cho tin nhắn của chatbot MinLiNa */
+    .message.bot {
+        align-self: flex-start; /* Tin nhắn của bot căn trái */
+        background-color: #ffffff; /* Màu nền trắng */
+        color: #333;
+        border-radius: 12px 12px 12px 2px; /* Bo góc tin nhắn */
+        padding: 8px 12px;
+        max-width: 80%;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    /* Input và nút gửi */
+    .input-area {
+        padding: 15px;
+        border-top: 1px solid var(--border-color);
+        background-color: #f1f1f1; /* Màu nền khu vực input */
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    #userInput {
+        flex: 1; /* Cho phép input mở rộng */
+        padding: 10px 12px;
+        border: 1px solid var(--border-color);
+        border-radius: 20px; /* Bo tròn input */
+        font-size: 15px;
+        outline: none; /* Bỏ đường viền khi focus */
+        transition: border-color 0.3s ease;
+    }
+
+    #userInput:focus {
+        border-color: var(--primary-color);
+    }
+
+    .input-area button {
+        padding: 10px 20px;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 20px; /* Bo tròn nút gửi */
+        font-size: 15px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .input-area button:hover {
+        background-color: var(--primary-dark-color);
+        transform: translateY(-1px);
+    }
+
+    /* Hiển thị trạng thái loading */
+    .loading-dot {
+        animation: dot-pulse 1s infinite steps(1, start);
+        display: inline-block;
+        width: 3px; /* Kích thước chấm */
+        height: 3px;
+        background-color: #333; /* Màu chấm */
+        border-radius: 50%;
+        margin: 0 1px;
+    }
+
+    .loading-dot:nth-child(1) { animation-delay: 0s; }
+    .loading-dot:nth-child(2) { animation-delay: 0.2s; }
+    .loading-dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes dot-pulse {
+        0%, 100% { opacity: 0; }
+        50% { opacity: 1; }
+    }
+    /* Màu nền và chữ chính */
+    .container-fluid.bg-secondary {
+        background-color: #F3F4F6 !important; /* Màu be xám nhẹ */
+        color: #5B4B44 !important;           /* Nâu nhạt sang trọng */
+        font-size: 15px;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* Tiêu đề MinLiNa */
+    .logo-brand {
+        font-family: 'Playfair Display', serif;
+        font-size: 28px;
+        font-weight: 700;
+    }
+
+    .logo-min {
+        color: #DA627D; /* Hồng pastel nữ tính */
+    }
+
+    .logo-lina {
+        color: #2D2D2D; /* Đen mềm */
+    }
+
+    /* Các tiêu đề cột */
+    .container-fluid .font-weight-bold {
+        font-size: 17px;
+        color: #2D2D2D;
+        margin-bottom: 12px;
+    }
+
+    /* Nội dung text nhỏ lại chút, rõ ràng */
+    .container-fluid p,
+    .container-fluid a,
+    .container-fluid input,
+    .container-fluid button {
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+    /* Liên kết nhanh */
+    .container-fluid a.text-dark {
+        color: #5B4B44 !important;
+        text-decoration: none;
+        transition: 0.2s;
+    }
+
+    .container-fluid a.text-dark:hover {
+        color: #DA627D !important;
+        text-decoration: underline;
+    }
+
+    /* Input nhận tin */
+    .container-fluid .form-control {
+        font-size: 15px;
+        border-radius: 6px;
+        padding: 10px 12px;
+    }
+
+    /* Nút đăng ký */
+    .container-fluid .btn-primary {
+        background-color: #DA627D;
+        border: none;
+        font-weight: 600;
+        border-radius: 6px;
+        transition: 0.2s;
+    }
+
+    .container-fluid .btn-primary:hover {
+        background-color: #c24e6a;
+    }
+
+    /* Dòng bản quyền cuối */
+    .container-fluid .border-top {
+        font-size: 14px;
+        color: #888;
+    }
+    /* Giảm padding của footer */
+    .container-fluid.bg-secondary {
+        padding: 30px 20px 10px; /* Trên - ngang - dưới */
+    }
+
+    /* Giảm khoảng cách bên trong hàng */
+    .container-fluid.bg-secondary .row {
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    /* Dòng cuối cùng: bản quyền + thanh toán */
+    .container-fluid.bg-secondary .border-top {
+        padding: 15px 10px 5px;
+    }
+    @media (max-width: 768px) {
+        .text-md-left {
+            text-align: center !important;
+        }
+        .text-md-right {
+            text-align: center !important;
+        }
+    }
+
+    /* Căn lề đẹp hơn cho phần đăng ký và liên kết */
+    .footer-link-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+    }
+
+    .footer-link-section {
+        flex: 1;
+        min-width: 200px;
+    }
+
+</style>
+
 
 <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
 

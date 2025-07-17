@@ -1,24 +1,81 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{admin/fragments/head :: head}"></head>
+
+<style>
+    .content-header {
+        background: linear-gradient(to right, #7562b9, #6b00b3);
+        border-radius: 12px 12px 0 0;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .content-header h1 {
+        color: white;
+        font-weight: 700;
+        margin: 0;
+        padding: 16px 0;
+    }
+
+    .filter-btn {
+        border-radius: 20px;
+        padding: 10px 20px;
+        font-weight: bold;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .filter-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-dark {
+        font-weight: 600;
+        border-radius: 8px;
+    }
+
+    .modal-header {
+        background: linear-gradient(to right, #7562b9, #6b00b3);
+        color: white;
+    }
+
+    .table thead {
+        background: linear-gradient(to right, #6a11cb, #2575fc);
+        color: white;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .form-control,
+    .form-select {
+        border-radius: 8px;
+    }
+
+    .btn-primary {
+        border-radius: 8px;
+    }
+</style>
+
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
-    <!-- header & sidebar -->
+    <!-- Header & Sidebar -->
     <div th:replace="~{admin/fragments/header :: header}"></div>
     <div th:replace="~{admin/fragments/sidebar :: sidebar}"></div>
 
+    <!-- Content -->
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>Phiếu Giảm Giá Theo Sản Phẩm</h1>
+            <h1>🎯 Phiếu Giảm Giá Theo Sản Phẩm</h1>
         </section>
 
         <section class="content">
             <div class="box">
                 <div class="box-body">
 
-                    <!-- Filter trạng thái -->
+                    <!-- Bộ lọc trạng thái -->
                     <div class="d-flex justify-content-center gap-3 mb-3 p-3 border rounded-3 shadow-sm bg-light">
                         <button class="btn btn-outline-dark filter-btn" data-status="">Tất Cả</button>
                         <button class="btn btn-outline-success filter-btn" data-status="Đang Hoạt Động">Đang Hoạt Động</button>
@@ -26,7 +83,7 @@
                         <button class="btn btn-outline-warning filter-btn" data-status="Sắp Diễn Ra">Sắp Diễn Ra</button>
                     </div>
 
-                    <!-- Nút thêm và tìm kiếm -->
+                    <!-- Thêm & Tìm kiếm -->
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <div class="d-flex gap-2">
                             <button id="btnAdd" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addModal">
@@ -36,9 +93,9 @@
                         <input type="text" id="searchInput" class="form-control w-25" placeholder="Tìm kiếm phiếu...">
                     </div>
 
-                    <!-- Bảng phiếu giảm giá -->
-                    <table class="table table-bordered table-striped">
-                        <thead class="table-dark text-center">
+                    <!-- Bảng dữ liệu -->
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead class="text-center">
                         <tr>
                             <th>#</th>
                             <th>Mã Phiếu</th>
@@ -52,25 +109,24 @@
                         </tr>
                         </thead>
                         <tbody id="phieuGiamTableBody" class="text-center">
-                        <!-- JS sẽ đổ dữ liệu vào đây -->
+                        <!-- JS render -->
                         </tbody>
                     </table>
 
-                    <!-- Phân trang phiếu -->
+                    <!-- Phân trang -->
                     <div class="d-flex justify-content-between align-items-center mt-3 px-2">
                         <button class="btn btn-outline-secondary" onclick="prevPage()">← Trang trước</button>
                         <span>Trang: <span id="pageNumber">1</span></span>
                         <button class="btn btn-outline-secondary" onclick="nextPage()">Trang sau →</button>
                     </div>
-
                 </div>
             </div>
 
-            <!-- Modal Thêm Phiếu -->
+            <!-- Modal Thêm -->
             <div class="modal fade" id="addModal" tabindex="-1">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
-                        <div class="modal-header bg-dark text-white">
+                        <div class="modal-header">
                             <h5 class="modal-title">Thêm Phiếu Giảm Giá Sản Phẩm</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
@@ -121,12 +177,14 @@
                                     </div>
                                 </div>
 
+                                <!-- Danh sách sản phẩm -->
                                 <div class="d-flex justify-content-between align-items-center mb-2">
                                     <h6 class="mb-0">Danh sách sản phẩm</h6>
-                                    <input type="text" id="searchSanPhamInput" class="form-control w-50" placeholder="Tìm sản phẩm theo tên...">
+                                    <input type="text" id="searchSanPhamInput" class="form-control w-50"
+                                           placeholder="Tìm sản phẩm theo tên...">
                                 </div>
 
-                                <table class="table table-bordered table-hover shadow-sm rounded bg-white">
+                                <table class="table table-bordered table-hover bg-white rounded shadow-sm">
                                     <thead class="text-center text-white" style="background-color: #007bff;">
                                     <tr>
                                         <th>Chọn</th>
@@ -136,14 +194,8 @@
                                         <th>Trạng thái</th>
                                     </tr>
                                     </thead>
-                                    <tbody id="bangSanPham" class="text-center align-middle">
-
-                                    </tbody>
+                                    <tbody id="bangSanPham" class="text-center align-middle"></tbody>
                                 </table>
-
-                                <nav aria-label="Phân trang sản phẩm">
-
-                                </nav>
 
                                 <div class="text-end">
                                     <button type="submit" class="btn btn-primary">Lưu Phiếu</button>
@@ -154,7 +206,7 @@
                 </div>
             </div>
 
-            <!-- Modal Xem Chi Tiết -->
+            <!-- Modal Chi Tiết -->
             <div class="modal fade" id="xemModal" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -177,13 +229,11 @@
         </section>
     </div>
 
-
+    <!-- Script -->
     <div th:replace="~{admin/fragments/script :: script}"></div>
-
     <script src="/js/main.js"></script>
     <script src="/js/DangNhap/login.js"></script>
     <script src="/js/DangNhap/logout.js"></script>
-
 </div>
 </body>
 </html>

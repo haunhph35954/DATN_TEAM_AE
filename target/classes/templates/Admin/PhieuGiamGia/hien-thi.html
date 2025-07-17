@@ -1,35 +1,34 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{admin/fragments/head :: head}"></head>
+
 <style>
-    /* Tạo hiệu ứng hover cho bảng */
-    .table-hover tbody tr:hover {
-        background-color: #f8f9fa !important;
+    body {
+        background-color: #f8f9fa;
+        font-family: 'Segoe UI', sans-serif;
     }
 
-    /* Định dạng badge trạng thái */
+    .table-hover tbody tr:hover {
+        background-color: #f1f1f1 !important;
+    }
+
     .modal-lg {
         max-width: 80%;
     }
 
-    /* Chỉnh modal */
     .modal-content {
         border-radius: 12px;
         box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
     }
 
     .modal-header {
-        background: linear-gradient(to right, #007bff, #0056b3);
+        background: linear-gradient(to right, #7562b9, #6b00b3);
         color: white;
         border-radius: 12px 12px 0 0;
     }
 
-    .border-end {
-        border-right: 2px solid #dee2e6;
-    }
-
-    /* Chỉnh input và select */
-    .form-control, .form-select {
+    .form-control,
+    .form-select {
         border-radius: 8px;
         padding: 10px;
         border: 1px solid #ced4da;
@@ -41,18 +40,13 @@
         padding: 5px;
     }
 
-    .table-hover tbody tr:hover {
-        background-color: #f8f9fa !important;
-    }
-
-    /* Chỉnh badge filter */
-    .filter-btn {
-        transition: all 0.3s ease-in-out;
-    }
-
     .btn-primary {
         border-radius: 8px;
         font-weight: bold;
+    }
+
+    .filter-btn {
+        transition: all 0.3s ease-in-out;
     }
 
     .filter-btn:hover {
@@ -60,84 +54,87 @@
         box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
     }
 
+    .content-header {
+        background: linear-gradient(to right, #3a3f51, #2c2f3e);
+        border-radius: 12px 12px 0 0;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .content-header h2 {
+        color: white;
+        font-weight: 700;
+        margin: 0;
+        padding: 16px 0;
+    }
 </style>
+
 <body class="hold-transition skin-blue sidebar-mini">
-<!-- Site wrapper -->
 <div class="wrapper">
 
     <div th:replace="~{admin/fragments/header :: header}"></div>
-    <!-- =============================================== -->
-
-    <!-- Left side column. contains the sidebar -->
     <div th:replace="~{admin/fragments/sidebar :: sidebar}"></div>
 
-    <!-- =============================================== -->
-
-    <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>
-                Phiếu Giảm Giá
-            </h1>
+
+        <!-- Tiêu đề đồng bộ đẹp -->
+        <section class="content-header content-header text-center">
+            <h2 class="text-white fw-bold">🎟️ Phiếu Giảm Giá</h2>
         </section>
 
         <!-- Main content -->
         <section class="content">
-
-            <!-- Default box -->
             <div class="box">
                 <div class="box-body">
+                    <!-- Filter trạng thái -->
                     <div class="d-flex justify-content-center gap-3 mb-3 p-3 border rounded-3 shadow-sm bg-light">
-                        <button class="btn btn-outline-primary filter-btn px-4 py-2 fw-bold border border-primary rounded-pill"
-                                data-status="">
+                        <button class="btn btn-outline-primary filter-btn px-4 py-2 fw-bold border-primary rounded-pill" data-status="">
                             Tất Cả (<span id="count-all">0</span>)
                         </button>
-                        <button class="btn btn-outline-success filter-btn px-4 py-2 fw-bold border border-success rounded-pill"
-                                data-status="Đang Hoạt Động">
+                        <button class="btn btn-outline-success filter-btn px-4 py-2 fw-bold border-success rounded-pill" data-status="Đang Hoạt Động">
                             Đang Hoạt Động (<span id="count-active">0</span>)
                         </button>
-                        <button class="btn btn-outline-danger filter-btn px-4 py-2 fw-bold border border-danger rounded-pill"
-                                data-status="Ngừng Hoạt Động">
+                        <button class="btn btn-outline-danger filter-btn px-4 py-2 fw-bold border-danger rounded-pill" data-status="Ngừng Hoạt Động">
                             Ngừng Hoạt Động (<span id="count-inactive">0</span>)
                         </button>
-                        <button class="btn btn-outline-warning filter-btn px-4 py-2 fw-bold border border-warning rounded-pill"
-                                data-status="Sắp Diễn Ra">
+                        <button class="btn btn-outline-warning filter-btn px-4 py-2 fw-bold border-warning rounded-pill" data-status="Sắp Diễn Ra">
                             Sắp Diễn Ra (<span id="count-upcoming">0</span>)
                         </button>
                     </div>
 
-
+                    <!-- Nút thêm mới -->
                     <div class="d-flex justify-content-end mb-3">
                         <button type="button" class="btn btn-success d-flex align-items-center gap-2"
-                                data-bs-toggle="modal" data-bs-target="#addModal"
-                                id="btnAdd" title="Thêm">
+                                data-bs-toggle="modal" data-bs-target="#addModal" id="btnAdd" title="Thêm">
                             <i class="fas fa-plus"></i> Tạo phiếu giảm giá
                         </button>
                     </div>
 
-
-                    <table id="productTable" class="table table-hover table-bordered">
-                        <thead class="table-dark">
-                        <tr class="text-center">
-                            <th>#</th>
-                            <th>Mã</th>
-                            <th>Tên</th>
-                            <th>Giá Trị Giảm</th>
-                            <th>Số lượt sử dụng</th>
-                            <th>Thời gian</th>
-                            <th>Trạng Thái</th>
-                            <th>Hành động</th>
-                        </tr>
-                        </thead>
-                        <tbody class="text-center"></tbody>
-                    </table>
-
+                    <!-- Bảng -->
+                    <div class="table-responsive">
+                        <table id="productTable" class="table table-hover table-bordered">
+                            <thead class="table-dark text-center">
+                            <tr>
+                                <th>#</th>
+                                <th>Mã</th>
+                                <th>Tên</th>
+                                <th>Giá Trị Giảm</th>
+                                <th>Số lượt sử dụng</th>
+                                <th>Thời gian</th>
+                                <th>Trạng Thái</th>
+                                <th>Hành động</th>
+                            </tr>
+                            </thead>
+                            <tbody class="text-center"></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </section>
+
+        <!-- Modal thêm phiếu giảm giá -->
         <div class="modal fade" id="addModal" tabindex="-1">
-            <div class="modal-dialog modal-lg"> <!-- Giữ nguyên kích thước hợp lý -->
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title fw-bold text-white" id="modalTitle">Thêm Phiếu Giảm Giá</h5>
@@ -170,7 +167,6 @@
                                             <input type="radio" class="btn-check" name="donViTinh" id="option-vnd" value="VND" checked>
                                             <label class="btn btn-outline-dark" for="option-vnd">VND</label>
                                         </div>
-
                                     </div>
                                 </div>
                                 <div class="d-flex gap-3">
@@ -209,29 +205,22 @@
                         </div>
 
                         <div class="d-flex justify-content-end mb-3">
-                            <button type="submit" id="btnSubmit" class="btn btn-primary px-4 py-2">Lưu Phiếu Giảm Giá
-                            </button>
+                            <button type="submit" id="btnSubmit" class="btn btn-primary px-4 py-2">Lưu Phiếu Giảm Giá</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-
     </div>
-    <!-- /.content-wrapper -->
 
     <div th:replace="admin/fragments/footer :: footer"></div>
-
-
 </div>
-
 
 <div th:replace="~{admin/fragments/script :: script}"></div>
 <script src="/js/phieugiamgia.js"></script>
 <script src="/js/main.js"></script>
 <script src="/js/DangNhap/login.js"></script>
 <script src="/js/DangNhap/logout.js"></script>
-
 </body>
 </html>

@@ -122,6 +122,7 @@ function setProvince(provinceCode, provinceName) {
     console.log("Chọn tỉnh:", provinceName);
     document.getElementById("province").value = provinceCode;
     loadDistrictsByProvince(provinceCode);
+
 }
 
 function loadDistrictsByProvince(provinceCode) {

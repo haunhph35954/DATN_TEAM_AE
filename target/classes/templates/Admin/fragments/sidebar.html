@@ -56,6 +56,13 @@
                     <li><a href="/admin/khach-hang"><i class="fa fa-user"></i> Khách Hàng </a></li>
                 </ul>
             </li>
+            <!-- Quản Lý Liên Hệ (Admin & Nhân viên đều thấy) -->
+            <li>
+                <a href="/admin/lien-he">
+                    <i class="fa fa-envelope"></i> <span>Quản Lý Liên Hệ</span>
+                </a>
+            </li>
+
 
             <!-- Giảm Giá (Chỉ Admin thấy) -->
             <li class="treeview" th:if="${session.userNhanVien != null and #lists.contains(session.rolesNhanVien, 'ROLE_ADMIN')}">
@@ -63,7 +70,8 @@
                     <i class="fa fa-percentage"></i> <span>Giảm Giá</span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/admin/phieu-giam-gia"><i class="fa fa-ticket-alt"></i> Phiếu Giảm Giá </a></li>
+                    <li><a href="/admin/phieu-giam-gia"><i class="fa fa-ticket-alt"></i> Phiếu Giảm Giá Hoa Don</a></li>
+                    <li><a href="/admin/phieugiamsp"><i class="fa fa-ticket-alt"></i> Phiếu Giảm Giá Sản Phẩm </a></li>
                 </ul>
             </li>
 

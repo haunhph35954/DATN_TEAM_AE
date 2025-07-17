@@ -1,5 +1,6 @@
 package com.example.datn_team_ae.Repository;
 
+import com.example.datn_team_ae.DTO.SanPhamTuVanDTO;
 import com.example.datn_team_ae.DTO.SanPhamViewDto;
 import com.example.datn_team_ae.Entity.SanPham;
 import com.example.datn_team_ae.Entity.SanPhamChiTiet;
@@ -27,6 +28,16 @@ public interface SanPhamChiTietRepository extends JpaRepository<SanPhamChiTiet, 
     @Query("SELECT spct FROM SanPhamChiTiet spct WHERE spct.soLuong <= 10")
     List<SanPhamChiTiet> findLowStockProducts();
 
+    @Query("""
+    SELECT new com.example.datn_team_ae.DTO.SanPhamTuVanDTO(
+        sp.tenSanPham, ms.tenMauSac, kt.tenKichThuoc, ct.soLuong)
+    FROM SanPhamChiTiet ct
+    JOIN ct.sanPham sp
+    JOIN ct.mauSac ms
+    JOIN ct.kichThuoc kt
+    WHERE sp.deleted = false
+""")
+    List<SanPhamTuVanDTO> laySanPhamTuVan();
 
     List<SanPhamChiTiet> findBySanPhamId(Integer sanPhamId);
 

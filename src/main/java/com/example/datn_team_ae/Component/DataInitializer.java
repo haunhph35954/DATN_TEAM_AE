@@ -58,7 +58,7 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        String email = "admin@gmail.com";
+        String email = "hauadmin@gmail.com.vn";
 
         // Dùng email để kiểm tra tồn tại
         if (nhanVienRepository.findByEmail(email.trim().toLowerCase()).isEmpty()) {
