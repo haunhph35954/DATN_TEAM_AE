@@ -102,7 +102,7 @@ public class ShopService {
         // Giới hạn số hóa đơn đang xử lý
         long countDangXuLy = hoaDonRepository.countByTrangThai("Đang xử lý");
         if (countDangXuLy >= 3) {
-            throw new Exception("Đã đạt giới hạn 3 hóa đơn đang xử lý");
+            throw new Exception("Tạo được 3 hóa đơn thôi thằng hậu à");
         }
 
         // Kiểm tra và tạo phương thức thanh toán mặc định nếu chưa có

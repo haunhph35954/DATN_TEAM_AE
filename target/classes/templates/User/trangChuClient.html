@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 
 <head>
     <meta charset="utf-8">
@@ -116,6 +116,20 @@
 
     .container-fluid {
         background-color: var(--bg-topbar);
+    }
+    #chatbox img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        margin: 8px 0;
+        display: block;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        object-fit: contain;
+    }
+
+    #chatbot-popup {
+        overflow-y: auto;
+        max-height: 90vh; /* Giới hạn chiều cao hợp lý */
     }
 </style>
 
@@ -1207,6 +1221,190 @@
 <!--fooot ter-->
 
 <style>
+    :root {
+        --primary-color: #FF80AB; /* Màu hồng chủ đạo */
+        --primary-dark-color: #e06090; /* Màu hồng đậm hơn cho hover */
+        --border-color: #ddd;
+        --shadow-color: rgba(0, 0, 0, 0.15);
+    }
+    #chatbot-button {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        z-index: 999;
+    }
+
+    #chatbot-button button {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 15px 25px; /* Tăng kích thước nút */
+        border: none;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 8px var(--shadow-color); /* Thêm đổ bóng */
+        transition: background-color 0.3s ease, transform 0.2s ease; /* Hiệu ứng chuyển động */
+    }
+
+    #chatbot-button button:hover {
+        background-color: var(--primary-dark-color);
+        transform: translateY(-2px); /* Nâng nút lên một chút khi hover */
+    }
+
+    /* Popup chatbot */
+    #chatbot-popup {
+        position: fixed;
+        bottom: 90px; /* Nâng cao hơn nút một chút */
+        left: 20px;
+        width: 380px; /* Tăng chiều rộng một chút */
+        height: 550px; /* Tăng chiều cao một chút */
+        background: white;
+        border-radius: 15px;
+        border: 1px solid var(--border-color);
+        display: none;
+        flex-direction: column;
+        z-index: 1000;
+        box-shadow: 0 8px 20px var(--shadow-color); /* Đổ bóng mạnh hơn */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Font hiện đại hơn */
+        overflow: hidden; /* Đảm bảo nội dung không tràn ra ngoài góc bo tròn */
+    }
+
+    /* Header chatbot */
+    #chatbot-popup .header {
+        background-color: var(--primary-color);
+        padding: 15px; /* Tăng padding */
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        border-top-left-radius: 15px; /* Bo góc header */
+        border-top-right-radius: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #chatbot-popup .header button {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px; /* Tăng kích thước nút đóng */
+        cursor: pointer;
+        transition: transform 0.2s ease;
+    }
+
+    #chatbot-popup .header button:hover {
+        transform: rotate(90deg); /* Hiệu ứng xoay khi đóng */
+    }
+
+    /* Chatbox hiển thị tin nhắn */
+    #chatbox {
+        flex: 1;
+        padding: 15px;
+        overflow-y: auto;
+        font-size: 15px;
+        line-height: 1.6;
+        background-color: #f9f9f9; /* Màu nền nhẹ nhàng */
+        display: flex; /* Dùng flexbox để tin nhắn tự xuống dòng */
+        flex-direction: column;
+        gap: 10px; /* Khoảng cách giữa các tin nhắn */
+    }
+
+    /* Thanh cuộn tùy chỉnh */
+    #chatbox::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    #chatbox::-webkit-scrollbar-thumb {
+        background-color: #ccc;
+        border-radius: 4px;
+    }
+
+    #chatbox::-webkit-scrollbar-track {
+        background-color: #f1f1f1;
+    }
+
+    /* Phong cách cho tin nhắn của bạn */
+    .message.user {
+        align-self: flex-end; /* Tin nhắn của bạn căn phải */
+        background-color: #e0f7fa; /* Màu nền xanh nhạt */
+        color: #333;
+        border-radius: 12px 12px 2px 12px; /* Bo góc tin nhắn */
+        padding: 8px 12px;
+        max-width: 80%; /* Giới hạn chiều rộng tin nhắn */
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    /* Phong cách cho tin nhắn của chatbot MinLiNa */
+    .message.bot {
+        align-self: flex-start; /* Tin nhắn của bot căn trái */
+        background-color: #ffffff; /* Màu nền trắng */
+        color: #333;
+        border-radius: 12px 12px 12px 2px; /* Bo góc tin nhắn */
+        padding: 8px 12px;
+        max-width: 80%;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    /* Input và nút gửi */
+    .input-area {
+        padding: 15px;
+        border-top: 1px solid var(--border-color);
+        background-color: #f1f1f1; /* Màu nền khu vực input */
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    #userInput {
+        flex: 1; /* Cho phép input mở rộng */
+        padding: 10px 12px;
+        border: 1px solid var(--border-color);
+        border-radius: 20px; /* Bo tròn input */
+        font-size: 15px;
+        outline: none; /* Bỏ đường viền khi focus */
+        transition: border-color 0.3s ease;
+    }
+
+    #userInput:focus {
+        border-color: var(--primary-color);
+    }
+
+    .input-area button {
+        padding: 10px 20px;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 20px; /* Bo tròn nút gửi */
+        font-size: 15px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .input-area button:hover {
+        background-color: var(--primary-dark-color);
+        transform: translateY(-1px);
+    }
+
+    /* Hiển thị trạng thái loading */
+    .loading-dot {
+        animation: dot-pulse 1s infinite steps(1, start);
+        display: inline-block;
+        width: 3px; /* Kích thước chấm */
+        height: 3px;
+        background-color: #333; /* Màu chấm */
+        border-radius: 50%;
+        margin: 0 1px;
+    }
+
+    .loading-dot:nth-child(1) { animation-delay: 0s; }
+    .loading-dot:nth-child(2) { animation-delay: 0.2s; }
+    .loading-dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes dot-pulse {
+        0%, 100% { opacity: 0; }
+        50% { opacity: 1; }
+    }
     /* Màu nền và chữ chính */
     .container-fluid.bg-secondary {
         background-color: #F3F4F6 !important; /* Màu be xám nhẹ */
@@ -1387,6 +1585,94 @@
         </div>
     </div>
 </div>
+
+
+
+
+<!-- CHATBOT UI -->
+<div id="chatbot-button">
+    <button onclick="toggleChatbot()">💬Chat AI</button>
+</div>
+
+<div id="chatbot-popup">
+    <div class="header">
+        <span>🧠 MinLiNa Chatbot</span>
+        <button onclick="toggleChatbot()">✖</button>
+    </div>
+    <div id="chatbox">
+        <div class="message bot">Chào Bạn, tôi có thể giúp gì cho bạn hôm nay?</div>
+    </div>
+    <div class="input-area">
+        <input type="text" id="userInput" placeholder="Nhập câu hỏi..." onkeydown="handleKeyDown(event)">
+        <button onclick="sendMessage()">Gửi</button>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+    function handleKeyDown(event) {
+        if (event.key === 'Enter') {
+            sendMessage();
+        }
+    }
+
+    function toggleChatbot() {
+        const popup = document.getElementById("chatbot-popup");
+        if (popup.style.display === "none" || popup.style.display === "") {
+            popup.style.display = "flex";
+            document.getElementById("userInput").focus();
+        } else {
+            popup.style.display = "none";
+        }
+    }
+
+    async function sendMessage() {
+        const input = document.getElementById("userInput");
+        const chatbox = document.getElementById("chatbox");
+        const message = input.value.trim();
+        if (message === "") return;
+
+        chatbox.innerHTML += `<div class="message user"><b>Bạn:</b> ${message}</div>`;
+        input.value = "";
+        chatbox.scrollTop = chatbox.scrollHeight;
+
+        const loadingMessageDiv = document.createElement('div');
+        loadingMessageDiv.className = 'message bot';
+        loadingMessageDiv.innerHTML = `<b>MinLiNa:</b> Đang gõ <span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span>`;
+        chatbox.appendChild(loadingMessageDiv);
+        chatbox.scrollTop = chatbox.scrollHeight;
+
+        try {
+            const res = await fetch("/api/chatbot/hoi", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(message)
+            });
+
+            chatbox.removeChild(loadingMessageDiv);
+
+            if (!res.ok) {
+                const errorText = await res.text();
+                console.error("Lỗi từ server:", res.status, errorText);
+                chatbox.innerHTML += `<div class="message bot" style="color:red;"><b>MinLiNa:</b> Xin lỗi, chatbot gặp lỗi. Vui lòng thử lại sau.</div>`;
+            } else {
+                const data = await res.text();
+                const renderedHtml = marked.parse(data); // Parse Markdown to HTML
+                chatbox.innerHTML += `<div class="message bot"><b>MinLiNa:</b> ${renderedHtml}</div>`;
+            }
+        } catch (error) {
+            if (chatbox.contains(loadingMessageDiv)) {
+                chatbox.removeChild(loadingMessageDiv);
+            }
+            console.error("Lỗi khi gửi tin nhắn:", error);
+            chatbox.innerHTML += `<div class="message bot" style="color:red;"><b>MinLiNa:</b> Không thể kết nối đến chatbot. Vui lòng kiểm tra kết nối mạng hoặc thử lại.</div>`;
+        } finally {
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+    }
+</script>
+
+
 <!--<style>-->
 <!--    /* Màu nền và chữ chính */-->
 <!--    .container-fluid.bg-secondary {-->
