@@ -26,6 +26,18 @@ public interface SanPhamRepository extends JpaRepository<SanPham,Integer> {
     @Modifying
     @Query("UPDATE SanPham sp SET sp.soLuong = :totalStock WHERE sp.id = :idSanPham")
     void updateStock(@Param("idSanPham") Integer idSanPham, @Param("totalStock") Integer totalStock);
-
+    @Query("SELECT CASE WHEN COUNT(sp) > 0 THEN true ELSE false END FROM SanPham sp " +
+            "WHERE sp.tenSanPham = :tenSanPham " +
+            "AND sp.thuongHieu.id = :thuongHieuId " +
+            "AND sp.xuatXu.id = :xuatXuId " +
+            "AND sp.danhMuc.id = :danhMucId " +
+            "AND sp.chatLieu.id = :chatLieuId")
+    boolean existsByAllFields(
+            @Param("tenSanPham") String tenSanPham,
+            @Param("thuongHieuId") Integer thuongHieuId,
+            @Param("xuatXuId") Integer xuatXuId,
+            @Param("danhMucId") Integer danhMucId,
+            @Param("chatLieuId") Integer chatLieuId
+    );
 
 }

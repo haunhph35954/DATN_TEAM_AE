@@ -82,107 +82,104 @@
                 <!-- Data Tables Row -->
                 <div class="row">
                     <!-- Top Products -->
-                    <div class="col-md-6">
-                        <div class="modern-table-container">
-                            <h2 class="section-title">🏆 Top Sản Phẩm Bán Chạy</h2>
-                            <div class="table-responsive">
-                                <table class="table modern-table" id="productTable">
-                                    <thead>
-                                    <tr>
-                                        <th>STT</th>
-                                        <th>Hình Ảnh</th>
-                                        <th>Tên Sản Phẩm</th>
-                                        <th>Giá</th>
-                                        <th>Số Lượng Bán</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr th:each="product, iterStat : ${productsPage}">
-                                        <td><span class="badge badge-primary">#<span
-                                                th:text="${iterStat.index + 1}"></span></span></td>
-                                        <td>
-                                            <img th:src="${product[0]}" alt="Product" width="60" class="product-image">
-                                        </td>
-                                        <td><strong th:text="${product[1]}"></strong></td>
-                                        <td><span class="text-success font-weight-bold"
-                                                  th:text="${#numbers.formatInteger(product[2], 3, 'COMMA') + ' VND'}"></span>
-                                        </td>
-                                        <td><span class="badge badge-danger badge-lg" style="color: black;"  th:text="${product[4]}"></span>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+
 
                     <!-- Order Status Chart -->
-                    <div class="col-md-6">
+                    <div class="col-md-6 w-100">
                         <div class="modern-table-container">
-                            <h2 class="section-title">📋 Trạng Thái Đơn Hàng</h2>
+                            <h2>📋 Trạng Thái Đơn Hàng</h2>
                             <div class="d-flex justify-content-center">
-                                <canvas id="orderStatusChart" style="max-width: 400px; max-height: 400px;"></canvas>
+                                <canvas id="orderStatusChart" style="width: 100%; max-height: 400px;"></canvas>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Low Stock and Growth Row -->
-                <div class="row">
-                    <!-- Low Stock Products -->
-                    <div class="col-md-6">
-                        <div class="modern-table-container">
-                            <h2 class="section-title">⚠️ Sản Phẩm Sắp Hết Hàng</h2>
-                            <div class="table-responsive">
-                                <table class="table modern-table" id="productTable1">
-                                    <thead>
-                                    <tr>
-                                        <th>STT</th>
-                                        <th>Hình Ảnh</th>
-                                        <th>Tên Sản Phẩm</th>
-                                        <th>Giá</th>
-                                        <th>Còn Lại</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr th:each="lowStockProduct, iterStat : ${lowStockProducts}">
-                                        <td><span class="badge badge-warning">#<span
-                                                th:text="${iterStat.index + 1}"></span></span></td>
-                                        <td>
-                                            <img th:if="${not #lists.isEmpty(lowStockProduct.hinhAnh)}"
-                                                 th:src="${lowStockProduct.hinhAnh[0].urlHinhAnh}"
-                                                 alt="Product" width="60" class="product-image">
-                                        </td>
-                                        <td>
-                                            <div>
-                                                <strong th:text="${lowStockProduct.sanPham?.tenSanPham}"></strong><br>
-                                                <small class="text-muted">
-                                                    <span th:text="${lowStockProduct.mauSac?.tenMauSac}"></span> -
-                                                    <span th:text="${lowStockProduct.kichThuoc?.tenKichThuoc}"></span>
-                                                </small><br>
-                                                <div th:classappend="${lowStockProduct.trangThai == 'Còn Hàng' ? 'status-progress' : 'status-progress danger'}"
-                                                     th:text="${lowStockProduct.trangThai}">
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td><span class="text-primary font-weight-bold"
-                                                  th:text="${lowStockProduct.gia != null ? #numbers.formatInteger(lowStockProduct.gia, 3, 'COMMA') + ' VND' : 'N/A'}"></span>
-                                        </td>
-                                        <td><span class="badge badge-danger badge-lg"
-                                                  th:text="${lowStockProduct.soLuong != null ? lowStockProduct.soLuong : '0'}"></span>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                <div class="col-md-6 w-100">
+                    <div class="modern-table-container">
+                        <h2>🏆 Top Sản Phẩm Bán Chạy</h2>
+                        <div class="table-responsive">
+                            <table class="table modern-table" id="productTable">
+                                <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Hình Ảnh</th>
+                                    <th>Tên Sản Phẩm</th>
+                                    <th>Giá</th>
+                                    <th>Số Lượng Bán</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="product, iterStat : ${productsPage}">
+                                    <td><span class="badge badge-primary">#<span
+                                            th:text="${iterStat.index + 1}"></span></span></td>
+                                    <td>
+                                        <img th:src="${product[0]}" alt="Product" width="60" class="product-image">
+                                    </td>
+                                    <td><strong th:text="${product[1]}"></strong></td>
+                                    <td><span class="text-success font-weight-bold"
+                                              th:text="${#numbers.formatInteger(product[2], 3, 'COMMA') + ' VND'}"></span>
+                                    </td>
+                                    <td><span class="badge badge-danger badge-lg" style="color: black;"  th:text="${product[4]}"></span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-
-                    <!-- Growth Stats -->
-                    <div class="col-md-6">
+                </div>
+                <div class="col-md-6 w-100">
+                    <div class="modern-table-container">
+                        <h2>⚠️ Sản Phẩm Sắp Hết Hàng</h2>
+                        <div class="table-responsive">
+                            <table class="table modern-table" id="productTable1">
+                                <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Hình Ảnh</th>
+                                    <th>Tên Sản Phẩm</th>
+                                    <th>Giá</th>
+                                    <th>Còn Lại</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="lowStockProduct, iterStat : ${lowStockProducts}">
+                                    <td><span class="badge badge-warning ">#<span
+                                            th:text="${iterStat.index + 1}"></span></span></td>
+                                    <td>
+                                        <img th:if="${not #lists.isEmpty(lowStockProduct.hinhAnh)}"
+                                             th:src="${lowStockProduct.hinhAnh[0].urlHinhAnh}"
+                                             alt="Product" width="60" class="product-image">
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <strong th:text="${lowStockProduct.sanPham?.tenSanPham}"></strong><br>
+                                            <small class="text-muted">
+                                                <span th:text="${lowStockProduct.mauSac?.tenMauSac}"></span> -
+                                                <span th:text="${lowStockProduct.kichThuoc?.tenKichThuoc}"></span>
+                                            </small><br>
+                                            <div th:classappend="${lowStockProduct.trangThai == 'Còn Hàng' ? 'status-progress' : 'status-progress danger'}"
+                                                 th:text="${lowStockProduct.trangThai}">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="text-primary font-weight-bold"
+                                              th:text="${lowStockProduct.gia != null ? #numbers.formatInteger(lowStockProduct.gia, 3, 'COMMA') + ' VND' : 'N/A'}"></span>
+                                    </td>
+                                    <td><span class="badge badge-danger badge-lg" style="color: black;"
+                                              th:text="${lowStockProduct.soLuong != null ? lowStockProduct.soLuong : '0'}"></span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- Low Stock and Growth Row -->
+                <div class="row">
+                    <div class="col-md-6 w-100">
                         <div class="modern-table-container">
-                            <h2 class="section-title">🚀 Tốc Độ Tăng Trưởng</h2>
-
+                            <h2>🚀 Tốc Độ Tăng Trưởng</h2>
                             <div class="growth-card">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <span class="font-weight-bold">📅 Doanh thu ngày</span>
@@ -390,6 +387,7 @@
             switch (filterValue) {
                 case '1':  // Hôm nay
                     filterDate = currentDate;
+                    filterDate.setHours(0, 0, 0, 0);
                     break;
                 case '7':  // 7 ngày gần nhất
                     filterDate = new Date(currentTimestamp - 7 * 24 * 60 * 60 * 1000); // Lấy thời điểm 7 ngày trước
