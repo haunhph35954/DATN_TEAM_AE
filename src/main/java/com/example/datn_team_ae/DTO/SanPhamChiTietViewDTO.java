@@ -25,7 +25,7 @@ public class SanPhamChiTietViewDTO {
     private String tenThuongHieu;  // Thương hiệu
     private String quocGia;  // Xuất xứ
 
-    // Constructor đầy đủ dữ liệu từ @Query
+
     public SanPhamChiTietViewDTO(Integer idSanPhamChiTiet, String tenSanPham, Float gia, String moTa,
                                  String tenKichThuoc, String tenMauSac, String hinhAnh, Integer soLuong,
                                  String tenChatLieu, String tenThuongHieu, String quocGia) {
@@ -38,13 +38,13 @@ public class SanPhamChiTietViewDTO {
         this.tenThuongHieu = tenThuongHieu;
         this.quocGia = quocGia;
 
-        // Thêm size và số lượng ngay khi khởi tạo
+
         if (tenKichThuoc != null) {
             this.sizes.add(tenKichThuoc);
             this.soLuongTheoSize.put(tenKichThuoc, soLuong);
         }
 
-        // Thêm hình ảnh nếu có
+
         if (hinhAnh != null) {
             this.hinhAnh.add(hinhAnh);
         }

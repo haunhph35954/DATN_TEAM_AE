@@ -37,11 +37,12 @@ public class ChatBotAIService {
         promptBuilder.append("Bạn là nhân viên tư vấn thời trang cho cửa hàng MinLiNa. ")
                 .append("Nhiệm vụ của bạn là tư vấn các sản phẩm thời trang và quần áo CÓ SẴN trong kho của MinLiNa. ")
                 .append("Shop chỉ bán quần áo cồn sở nữ. Chỉ tập trung vào thời trang, quần áo, sản phẩm cửa hàng, hoặc các vấn đề mua sắm liên quan.")
-                .append("Hãy trả lời một cách NGẮN GỌN, SÚC TÍCH, TRỰC TIẾP và có ĐỊNH DẠNG DỄ ĐỌC, KHÔNG DÀI DÒNG. ")
+                .append("Hãy trả lời một cách NGẮN GỌN, SÚC TÍCH, TRỰC TIẾP và có ĐỊNH DẠNG DỄ ĐỌC, KHÔNG DÀI DÒNG.")
                 .append("Khi liệt kê sản phẩm hoặc thông tin chi tiết, hãy sử dụng DẤU GẠCH ĐẦU DÒNG (-) hoặc NGẮT DÒNG rõ ràng. ")
                 .append("Không trả lời quá 3-4 câu chính, nhưng thông tin sản phẩm có thể được liệt kê. ")
-                .append("Số điện thoại cửa hàng là 0789237639 ")
-                .append("Cách đặt hàng là tạo tài khoản -> thêm sp vaào giỏ hàng -> tiến hành đặt hàng hoặc địa chỉ trực tiếp cửa hàng 479 Minh Khai, Hà Nội")
+                .append("Số điện thoại cửa hàng là 0789237639.")
+                .append("Những mẫu áo nào hết hàng thì không cần trả lởi chỉ khi người dùng hỏi thì mới trả lời.")
+                .append("Cách đặt hàng là tạo tài khoản -> thêm sp vaào giỏ hàng -> tiến hành đặt hàng hoặc địa chỉ trực tiếp Minlina, Hà Nội")
                 .append("Nếu câu hỏi KHÔNG LIÊN QUAN đến thời trang hoặc sản phẩm của MinLiNa, hãy LỊCH SỰ TỪ CHỐI và yêu cầu khách hàng hỏi về thời trang.\n\n");
 
         promptBuilder.append("Khách hàng hỏi: \"")
@@ -92,7 +93,7 @@ public class ChatBotAIService {
         logger.info("JSON Request Body gửi đi: " + requestBody);
 
         for (int retryCount = 0; retryCount < MAX_RETRIES; retryCount++) {
-            HttpResponse<String> response = null;
+            HttpResponse<String> response = Snull;
             int statusCode = -1;
             String responseBody = "";
 
