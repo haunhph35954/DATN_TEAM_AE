@@ -104,6 +104,7 @@ public class HoaDonApiController {
             map.put("ngayTao", hoaDon.getNgayTao() != null ? hoaDon.getNgayTao().toString() : "Không rõ ngày");
             map.put("phieuGiamGia", hoaDon.getPhieuGiamGia() != null ? Map.of("giaTriGiam", hoaDon.getPhieuGiamGia().getGiaTriGiam()) : null);
             map.put("tongTien", hoaDon.getTongTien() != null ? hoaDon.getTongTien() : 0);
+            map.put("trangThai", hoaDon.getTrangThai() != null ? hoaDon.getTrangThai() : "Không rõ trạng thái");
             return map;
         }).toList();
 

@@ -12,14 +12,27 @@
     <div th:replace="admin/fragments/sidebar :: sidebar"></div>
 
     <!-- =============================================== -->
+    <!--    tiêu đề chữ-->
+    <style>
+        .content-header {
+            background: linear-gradient(to right, #3a3f51, #2c2f3e);
+            padding: 20px;
+            border-radius: 12px 12px 0 0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
 
+        .content-header h2 {
+            color: white;
+            font-weight: 700;
+            margin: 0;
+        }
+    </style>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>
-                <h5>Thêm Sản Phẩm</h5>
-            </h1>
+            <h2>➕ Thêm sản phẩm</h2>
         </section>
 
         <!-- Main content -->

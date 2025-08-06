@@ -17,6 +17,7 @@ import java.util.List;
 
 @Repository
 public interface HoaDonRepository extends JpaRepository<HoaDon, Integer> {
+
     // Lấy danh sách hóa đơn theo trạng thái
     List<HoaDon> findByTrangThai(String trangThai);
 

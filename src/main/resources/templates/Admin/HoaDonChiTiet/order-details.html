@@ -93,6 +93,7 @@
 
     /* Styles for the button */
     .btn-warning {
+
         display: block;
         margin: 20px auto;
         padding: 10px 20px;
@@ -162,21 +163,32 @@
     <div th:replace="admin/fragments/sidebar :: sidebar"></div>
 
     <!-- =============================================== -->
+<style>
+    .content-header {
+        background: linear-gradient(to right, #3a3f51, #2c2f3e);
+        padding: 20px;
+        border-radius: 12px 12px 0 0;
+        margin-bottom: 20px;
+        text-align: center;
+    }
 
+    .content-header h2 {
+        color: white;
+        font-weight: 700;
+        margin: 0;
+    }
+</style>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
+        <!-- Tiêu đề -->
         <section class="content-header">
-            <h1>
-                Lịch Sử Hóa Đơn
-            </h1>
+            <h2>📄 Trạng Thái Hóa Đơn </h2>
         </section>
 
         <!-- Main content -->
         <section class="content">
-
             <!-- Default box -->
-            <div class="content-wrapper">
+            <div>
                 <div class="box-body">
                     <div class="container">
                         <section class="mt-4">
@@ -1027,7 +1039,6 @@
                 </div>
             </div>
             <!-- /.box -->
-
         </section>
         <!-- /.content -->
     </div>
