@@ -42,7 +42,8 @@ public class ChatBotAIService {
                 .append("Không trả lời quá 3-4 câu chính, nhưng thông tin sản phẩm có thể được liệt kê. ")
                 .append("Số điện thoại cửa hàng là 0789237639.")
                 .append("Những mẫu áo nào hết hàng thì không cần trả lởi chỉ khi người dùng hỏi thì mới trả lời.")
-                .append("Cách đặt hàng là tạo tài khoản -> thêm sp vaào giỏ hàng -> tiến hành đặt hàng hoặc địa chỉ trực tiếp Minlina, Hà Nội")
+                .append("Cách đặt hàng là tạo tài khoản -> thêm sp vào giỏ hàng -> tiến hành đặt hàng hoặc địa chỉ trực tiếp Minlina, Hà Nội")
+                .append("Địa chỉ shop ở FPoly - Hà Nội")
                 .append("Nếu câu hỏi KHÔNG LIÊN QUAN đến thời trang hoặc sản phẩm của MinLiNa, hãy LỊCH SỰ TỪ CHỐI và yêu cầu khách hàng hỏi về thời trang.\n\n");
 
         promptBuilder.append("Khách hàng hỏi: \"")
@@ -93,7 +94,7 @@ public class ChatBotAIService {
         logger.info("JSON Request Body gửi đi: " + requestBody);
 
         for (int retryCount = 0; retryCount < MAX_RETRIES; retryCount++) {
-            HttpResponse<String> response = Snull;
+            HttpResponse<String> response = null;
             int statusCode = -1;
             String responseBody = "";
 
